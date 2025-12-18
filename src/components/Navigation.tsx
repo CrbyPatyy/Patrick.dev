@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import MagneticText from './MagneticText';
 
 const navLinks = [
@@ -15,7 +15,6 @@ const YOUR_EMAIL = 'Patrickpilapilvillanueva@gmail.com';
 export default function Navigation() {
     const [scrolled, setScrolled] = useState(false);
     const [hidden, setHidden] = useState(false);
-    const [lastScrollY, setLastScrollY] = useState(0);
     const [mobileOpen, setMobileOpen] = useState(false);
     const [activeSection, setActiveSection] = useState('');
     const [currentTime, setCurrentTime] = useState('');
@@ -37,11 +36,15 @@ export default function Navigation() {
         return () => clearInterval(interval);
     }, []);
 
+    const lastScrollYRef = useRef(0);
+    const rafRef = useRef<number | null>(null);
+
     const handleScroll = useCallback(() => {
         const currentScrollY = window.scrollY;
-        const scrollDelta = currentScrollY - lastScrollY;
+        const scrollDelta = currentScrollY - lastScrollYRef.current;
 
-        setScrolled(currentScrollY > 50);
+        const isScrolled = currentScrollY > 50;
+        setScrolled(prev => prev !== isScrolled ? isScrolled : prev);
 
         // Only change hidden state if scroll delta is significant (> 10px)
         if (scrollDelta > 10 && currentScrollY > 200) {
@@ -50,7 +53,7 @@ export default function Navigation() {
             setHidden(false);
         }
 
-        setLastScrollY(currentScrollY);
+        lastScrollYRef.current = currentScrollY;
 
         const sections = navLinks.map(link => link.href.substring(1));
         for (const section of sections) {
@@ -58,17 +61,25 @@ export default function Navigation() {
             if (element) {
                 const rect = element.getBoundingClientRect();
                 if (rect.top <= 100 && rect.bottom >= 100) {
-                    setActiveSection(section);
+                    setActiveSection(prev => prev !== section ? section : prev);
                     break;
                 }
             }
         }
-    }, [lastScrollY]);
+    }, []);
 
     useEffect(() => {
-        window.addEventListener('scroll', handleScroll, { passive: true });
+        const onScroll = () => {
+            if (rafRef.current) cancelAnimationFrame(rafRef.current);
+            rafRef.current = requestAnimationFrame(handleScroll);
+        };
+
+        window.addEventListener('scroll', onScroll, { passive: true });
         handleScroll();
-        return () => window.removeEventListener('scroll', handleScroll);
+        return () => {
+            window.removeEventListener('scroll', onScroll);
+            if (rafRef.current) cancelAnimationFrame(rafRef.current);
+        };
     }, [handleScroll]);
 
     useEffect(() => {

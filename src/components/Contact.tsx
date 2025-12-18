@@ -48,41 +48,31 @@ export default function Contact() {
 
     return (
         <section id="contact" className="min-h-screen flex items-center py-20 bg-[var(--bg-primary)]">
-            <div className="container mx-auto px-4 max-w-7xl">
+            <div className="container mx-auto max-w-7xl">
                 <div ref={ref} className={`grid lg:grid-cols-2 gap-12 lg:gap-20 items-start transition-all duration-1000 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
                     {/* Left side - Info */}
-                    <div>
+                    <div className="text-center lg:text-left">
                         <p className="text-xs text-[var(--text-muted)] uppercase tracking-[0.2em] mb-6 font-medium">Get in Touch</p>
                         <h2 className="text-4xl md:text-5xl lg:text-6xl font-normal tracking-tight leading-[1.1] mb-8 text-[var(--text-primary)]">Let&apos;s build<br />something<br />great.</h2>
-                        <p className="text-lg text-[var(--text-secondary)] mb-10 max-w-md leading-relaxed">Have a project in mind? I&apos;d love to hear about it. Let&apos;s create something amazing together.</p>
+                        <p className="text-base sm:text-lg text-[var(--text-secondary)] mb-10 max-w-md mx-auto lg:mx-0 leading-relaxed">Have a project in mind? I&apos;d love to hear about it. Let&apos;s create something amazing together.</p>
 
-                        <div className="space-y-4">
-                            <a href="mailto:Patrickpilapilvillanueva@gmail.com" className="group flex items-center gap-4 p-4 rounded-xl border border-[var(--border)] hover:border-[var(--accent)] bg-[var(--bg-secondary)] hover:bg-[var(--bg-tertiary)] transition-all duration-300" aria-label="Email Patrick">
-                                <div className="w-12 h-12 rounded-full bg-[var(--bg-tertiary)] flex items-center justify-center group-hover:bg-[var(--accent)] group-hover:text-[var(--bg-primary)] transition-all duration-300">
-                                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                                    </svg>
-                                </div>
-                                <div>
-                                    <p className="text-xs text-[var(--text-muted)] mb-1">Email</p>
-                                    <p className="text-[var(--text-primary)] font-medium group-hover:translate-x-1 transition-transform duration-300">Patrickpilapilvillanueva@gmail.com</p>
-                                </div>
+                        <div className="flex flex-col sm:flex-row flex-wrap justify-center lg:justify-start gap-4 sm:gap-6 max-w-lg mx-auto lg:mx-0">
+                            <a href="mailto:Patrickpilapilvillanueva@gmail.com" className="group flex items-center gap-2" aria-label="Email Patrick">
+                                <svg className="w-5 h-5 text-[var(--text-muted)] group-hover:text-[var(--accent)] transition-colors flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                </svg>
+                                <span className="text-sm text-[var(--text-secondary)] group-hover:text-[var(--accent)] transition-colors">Patrickpilapilvillanueva@gmail.com</span>
                             </a>
 
-                            <div className="flex items-center gap-4 p-4 rounded-xl border border-[var(--border)] bg-[var(--bg-secondary)]">
-                                <div className="w-12 h-12 rounded-full bg-[var(--bg-tertiary)] flex items-center justify-center">
-                                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                                    </svg>
-                                </div>
-                                <div>
-                                    <p className="text-xs text-[var(--text-muted)] mb-1">Location</p>
-                                    <p className="text-[var(--text-primary)] font-medium flex items-center gap-2">
-                                        <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                                        Manila, Philippines
-                                    </p>
-                                </div>
+                            <div className="flex items-center gap-2">
+                                <svg className="w-5 h-5 text-[var(--text-muted)] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                </svg>
+                                <span className="text-sm text-[var(--text-secondary)] flex items-center gap-1.5">
+                                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                                    Manila, Philippines
+                                </span>
                             </div>
                         </div>
                     </div>

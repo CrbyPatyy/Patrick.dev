@@ -35,7 +35,7 @@ function ExperienceItem({ item, index, isLast }: { item: typeof experience[0]; i
 
     return (
         <div ref={ref} className={`transition-all duration-[1000ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`} style={{ transitionDelay: `${index * 120}ms` }}>
-            <div className={`group py-8 sm:py-10 lg:py-12 hover:bg-[var(--bg-secondary)] transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] -mx-4 px-4 sm:-mx-6 sm:px-6 rounded-xl ${!isLast ? 'border-b border-[var(--border)]' : ''}`}>
+            <div className={`group py-8 sm:py-10 lg:py-12 hover:bg-[var(--bg-secondary)] transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] rounded-xl ${!isLast ? 'border-b border-[var(--border)]' : ''}`}>
                 <div className="grid md:grid-cols-12 gap-4 md:gap-8">
                     <div className="md:col-span-3 xl:col-span-2">
                         <span className="font-mono text-sm text-[var(--text-muted)] uppercase tracking-wide">{item.period}</span>

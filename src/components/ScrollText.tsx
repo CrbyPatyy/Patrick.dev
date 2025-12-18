@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect, useState, useCallback } from 'react';
 
 interface ScrollTextProps {
     children: React.ReactNode;
@@ -10,40 +10,51 @@ interface ScrollTextProps {
 export default function ScrollText({ children, className = '' }: ScrollTextProps) {
     const ref = useRef<HTMLDivElement>(null);
     const [style, setStyle] = useState({ opacity: 0, scale: 0.95, y: 30 });
+    const lastStyleRef = useRef({ opacity: 0, scale: 0.95, y: 30 });
+    const rafRef = useRef<number | null>(null);
 
-    useEffect(() => {
+    const handleScroll = useCallback(() => {
         const element = ref.current;
         if (!element) return;
 
-        const handleScroll = () => {
-            const rect = element.getBoundingClientRect();
-            const windowHeight = window.innerHeight;
-            const elementCenter = rect.top + rect.height / 2;
-            const viewportCenter = windowHeight / 2;
+        const rect = element.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
+        const elementCenter = rect.top + rect.height / 2;
+        const viewportCenter = windowHeight / 2;
 
-            // Calculate progress based on distance from center
-            const distanceFromCenter = elementCenter - viewportCenter;
-            const maxDistance = windowHeight * 0.6;
+        const distanceFromCenter = elementCenter - viewportCenter;
+        const maxDistance = windowHeight * 0.6;
+        const normalizedDistance = distanceFromCenter / maxDistance;
 
-            // Normalize to -1 (above center) to 1 (below center)
-            const normalizedDistance = distanceFromCenter / maxDistance;
+        const opacity = Math.max(0, 1 - Math.abs(normalizedDistance) * 0.8);
+        const scale = 0.95 + (1 - Math.abs(normalizedDistance)) * 0.05;
+        const y = normalizedDistance * 30;
 
-            // Calculate opacity - peak at center
-            const opacity = Math.max(0, 1 - Math.abs(normalizedDistance) * 0.8);
-
-            // Calculate scale - slightly smaller when far from center
-            const scale = 0.95 + (1 - Math.abs(normalizedDistance)) * 0.05;
-
-            // Calculate Y offset - moves up as it scrolls
-            const y = normalizedDistance * 30;
-
+        // Only update if values changed significantly
+        const last = lastStyleRef.current;
+        if (
+            Math.abs(opacity - last.opacity) > 0.01 ||
+            Math.abs(scale - last.scale) > 0.001 ||
+            Math.abs(y - last.y) > 0.5
+        ) {
+            lastStyleRef.current = { opacity, scale, y };
             setStyle({ opacity, scale, y });
+        }
+    }, []);
+
+    useEffect(() => {
+        const onScroll = () => {
+            if (rafRef.current) cancelAnimationFrame(rafRef.current);
+            rafRef.current = requestAnimationFrame(handleScroll);
         };
 
         handleScroll();
-        window.addEventListener('scroll', handleScroll, { passive: true });
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
+        window.addEventListener('scroll', onScroll, { passive: true });
+        return () => {
+            window.removeEventListener('scroll', onScroll);
+            if (rafRef.current) cancelAnimationFrame(rafRef.current);
+        };
+    }, [handleScroll]);
 
     return (
         <div
@@ -74,32 +85,51 @@ export function ScrollStatement({
 }) {
     const ref = useRef<HTMLDivElement>(null);
     const [style, setStyle] = useState({ opacity: 0, scale: 0.95, y: 30 });
+    const lastStyleRef = useRef({ opacity: 0, scale: 0.95, y: 30 });
+    const rafRef = useRef<number | null>(null);
 
-    useEffect(() => {
+    const handleScroll = useCallback(() => {
         const element = ref.current;
         if (!element) return;
 
-        const handleScroll = () => {
-            const rect = element.getBoundingClientRect();
-            const windowHeight = window.innerHeight;
-            const elementCenter = rect.top + rect.height / 2;
-            const viewportCenter = windowHeight / 2;
+        const rect = element.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
+        const elementCenter = rect.top + rect.height / 2;
+        const viewportCenter = windowHeight / 2;
 
-            const distanceFromCenter = elementCenter - viewportCenter;
-            const maxDistance = windowHeight * 0.6;
-            const normalizedDistance = distanceFromCenter / maxDistance;
+        const distanceFromCenter = elementCenter - viewportCenter;
+        const maxDistance = windowHeight * 0.6;
+        const normalizedDistance = distanceFromCenter / maxDistance;
 
-            const opacity = Math.max(0, 1 - Math.abs(normalizedDistance) * 0.8);
-            const scale = 0.95 + (1 - Math.abs(normalizedDistance)) * 0.05;
-            const y = normalizedDistance * 30;
+        const opacity = Math.max(0, 1 - Math.abs(normalizedDistance) * 0.8);
+        const scale = 0.95 + (1 - Math.abs(normalizedDistance)) * 0.05;
+        const y = normalizedDistance * 30;
 
+        // Only update if values changed significantly
+        const last = lastStyleRef.current;
+        if (
+            Math.abs(opacity - last.opacity) > 0.01 ||
+            Math.abs(scale - last.scale) > 0.001 ||
+            Math.abs(y - last.y) > 0.5
+        ) {
+            lastStyleRef.current = { opacity, scale, y };
             setStyle({ opacity, scale, y });
+        }
+    }, []);
+
+    useEffect(() => {
+        const onScroll = () => {
+            if (rafRef.current) cancelAnimationFrame(rafRef.current);
+            rafRef.current = requestAnimationFrame(handleScroll);
         };
 
         handleScroll();
-        window.addEventListener('scroll', handleScroll, { passive: true });
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
+        window.addEventListener('scroll', onScroll, { passive: true });
+        return () => {
+            window.removeEventListener('scroll', onScroll);
+            if (rafRef.current) cancelAnimationFrame(rafRef.current);
+        };
+    }, [handleScroll]);
 
     return (
         <div
@@ -122,3 +152,4 @@ export function ScrollStatement({
         </div>
     );
 }
+

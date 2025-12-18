@@ -1,23 +1,42 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef, useCallback } from 'react';
 
 export default function ScrollProgress() {
     const [progress, setProgress] = useState(0);
+    const rafRef = useRef<number | null>(null);
+    const lastProgressRef = useRef(0);
+
+    const updateProgress = useCallback(() => {
+        const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const scrolled = window.scrollY;
+        const newProgress = scrollHeight > 0 ? (scrolled / scrollHeight) * 100 : 0;
+
+        // Only update if progress changed significantly (avoid tiny fluctuations)
+        if (Math.abs(newProgress - lastProgressRef.current) > 0.1) {
+            lastProgressRef.current = newProgress;
+            setProgress(newProgress);
+        }
+    }, []);
 
     useEffect(() => {
-        const updateProgress = () => {
-            const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
-            const scrolled = window.scrollY;
-            const progress = scrollHeight > 0 ? (scrolled / scrollHeight) * 100 : 0;
-            setProgress(progress);
+        const handleScroll = () => {
+            if (rafRef.current) {
+                cancelAnimationFrame(rafRef.current);
+            }
+            rafRef.current = requestAnimationFrame(updateProgress);
         };
 
-        window.addEventListener('scroll', updateProgress, { passive: true });
+        window.addEventListener('scroll', handleScroll, { passive: true });
         updateProgress();
 
-        return () => window.removeEventListener('scroll', updateProgress);
-    }, []);
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+            if (rafRef.current) {
+                cancelAnimationFrame(rafRef.current);
+            }
+        };
+    }, [updateProgress]);
 
     return (
         <div
@@ -38,3 +57,4 @@ export default function ScrollProgress() {
         </div>
     );
 }
+

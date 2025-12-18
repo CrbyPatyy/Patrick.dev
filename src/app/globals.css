@@ -40,6 +40,7 @@
   html {
     /* Lenis requires this for smooth scroll */
     scroll-behavior: auto;
+    overflow-x: hidden;
   }
 
   html.lenis,
@@ -91,7 +92,19 @@
     width: 100%;
     max-width: 1400px;
     margin: 0 auto;
-    padding: 0 2.5rem;
+    padding: 0 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .container {
+      padding: 0 1.5rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .container {
+      padding: 0 2.5rem;
+    }
   }
 
   /* ===== Section ===== */
@@ -762,6 +775,14 @@
 
 /* ===== Responsive & Mobile Tweaks ===== */
 @layer utilities {
+
+  /* Force content to stay within viewport on mobile */
+  html,
+  body {
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+
   @media (max-width: 768px) {
     .section {
       padding: 6rem 0;
@@ -777,7 +798,9 @@
     }
 
     .container {
-      padding: 0 1.5rem;
+      padding-left: 1rem !important;
+      padding-right: 1rem !important;
+      max-width: 100%;
     }
 
     .card {
@@ -789,39 +812,39 @@
       font-size: clamp(1.8rem, 7vw, 3rem);
     }
   }
+}
 
-  @media (hover: none) and (pointer: coarse) {
-    .group:active {
-      background: var(--bg-secondary);
-      border-color: var(--border);
-    }
-
-    .group:active h3 {
-      transform: translateX(8px);
-    }
-
-    .group:active .rounded-full {
-      background: var(--accent);
-      border-color: var(--accent);
-      color: white;
-    }
-
-    .group:active .rounded-full svg {
-      transform: rotate(0deg);
-    }
-
-    .btn:active {
-      transform: scale(0.98);
-    }
+@media (hover: none) and (pointer: coarse) {
+  .group:active {
+    background: var(--bg-secondary);
+    border-color: var(--border);
   }
 
-  @media (prefers-reduced-motion: reduce) {
+  .group:active h3 {
+    transform: translateX(8px);
+  }
 
-    *,
-    *::before,
-    *::after {
-      animation-duration: 0.01ms !important;
-      transition-duration: 0.01ms !important;
-    }
+  .group:active .rounded-full {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: white;
+  }
+
+  .group:active .rounded-full svg {
+    transform: rotate(0deg);
+  }
+
+  .btn:active {
+    transform: scale(0.98);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
   }
 }
