@@ -13,15 +13,15 @@ export default function About() {
     ];
 
     return (
-        <section id="about" className="min-h-screen flex items-center py-24 lg:py-32 bg-[var(--bg-secondary)]">
+        <section id="about" className="min-h-screen flex items-center py-28 lg:py-40 bg-[var(--bg-secondary)]">
             <div className="container">
                 <div ref={ref} className={`grid lg:grid-cols-12 gap-16 lg:gap-24 transition-all duration-1000 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
                     <div className="lg:col-span-7">
                         <p className="text-xs text-[var(--text-muted)] uppercase tracking-[0.2em] mb-6">About Me</p>
-                        <h2 className="text-3xl md:text-4xl lg:text-5xl font-normal leading-[1.15] tracking-tight mb-8">
+                        <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-normal leading-[1.15] tracking-tight mb-8">
                             I build digital products that are{' '}<span className="text-[var(--text-muted)]">intuitive, performant,</span>{' '}and designed to scale.
                         </h2>
-                        <p className="text-lg text-[var(--text-secondary)] leading-relaxed max-w-xl mb-10">
+                        <p className="text-base sm:text-lg text-[var(--text-secondary)] leading-relaxed max-w-xl mb-12">
                             With experience across the full development stack, I focus on creating seamless user experiences backed by clean, maintainable code. Currently based in Manila, available worldwide.
                         </p>
                         <div className="flex flex-wrap gap-4">

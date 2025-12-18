@@ -32,7 +32,7 @@ export default function Footer() {
     };
 
     return (
-        <footer className="py-20 lg:py-32 border-t border-[var(--border)] bg-[var(--bg-secondary)]">
+        <footer className="py-24 lg:py-36 border-t border-[var(--border)] bg-[var(--bg-secondary)]">
             <div className="container">
                 {/* Large logo */}
                 <div ref={logoRef} id="footer-logo" className={`text-center mb-16 transition-all duration-1000 ${visible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>

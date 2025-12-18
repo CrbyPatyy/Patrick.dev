@@ -9,18 +9,18 @@ export default function Projects() {
     const [headerRef, headerVisible] = useScrollReveal<HTMLDivElement>();
 
     return (
-        <section id="projects" className="min-h-screen flex items-center py-24 lg:py-32">
+        <section id="projects" className="min-h-screen flex items-center py-28 lg:py-40">
             <div className="container">
                 <div ref={headerRef} className={`flex flex-col md:flex-row md:items-end justify-between gap-4 mb-16 transition-all duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${headerVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-16'}`}>
                     <div>
                         <p className="text-xs text-[var(--text-muted)] uppercase tracking-[0.2em] mb-4">Featured Work</p>
-                        <h2 className="text-4xl md:text-5xl lg:text-6xl font-normal tracking-tight">Selected<br />Projects</h2>
+                        <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-normal tracking-tight">Selected<br />Projects</h2>
                     </div>
                     <a href="https://github.com/CrbyPatyy" target="_blank" rel="noopener noreferrer" className="text-sm text-[var(--text-secondary)]" aria-label="View all projects on GitHub">
                         <MagneticText text="View archive →" className="!px-0 !py-0" />
                     </a>
                 </div>
-                <div className="space-y-6">
+                <div className="space-y-6 sm:space-y-8">
                     {projects.map((project, index) => (
                         <ProjectCard key={project.id} project={project} index={index} />
                     ))}
@@ -41,7 +41,7 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
                 className={`project-card group block rounded-2xl border border-[var(--border)] bg-[var(--bg-primary)] transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${isComingSoon ? 'opacity-75 hover:opacity-100' : ''}`}
                 aria-label={`View details for ${project.title}`}
             >
-                <div className="grid lg:grid-cols-12 gap-6 lg:gap-8 p-8 lg:p-10">
+                <div className="grid lg:grid-cols-12 gap-4 sm:gap-6 lg:gap-8 p-6 sm:p-8 lg:p-10">
                     <div className="lg:col-span-1 flex items-start">
                         <span className="text-sm text-[var(--text-muted)] font-mono">{String(project.id).padStart(2, '0')}</span>
                     </div>

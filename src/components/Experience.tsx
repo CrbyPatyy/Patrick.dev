@@ -8,12 +8,12 @@ export default function Experience() {
     const [headerRef, headerVisible] = useScrollReveal<HTMLDivElement>();
 
     return (
-        <section id="experience" className="min-h-screen flex items-center py-24 lg:py-32">
+        <section id="experience" className="min-h-screen flex items-center py-28 lg:py-40">
             <div className="container">
                 <div ref={headerRef} className={`flex flex-col md:flex-row md:items-end justify-between gap-4 mb-16 transition-all duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${headerVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-16'}`}>
                     <div>
                         <p className="text-xs text-[var(--text-muted)] uppercase tracking-[0.2em] mb-4">Career Path</p>
-                        <h2 className="text-4xl md:text-5xl lg:text-6xl font-normal tracking-tight">Work<br />Experience</h2>
+                        <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-normal tracking-tight">Work<br />Experience</h2>
                     </div>
                     <a href="/Patrick%20Villanueva%20Resume.pdf" target="_blank" className="btn btn-secondary !p-0">
                         <MagneticText text="View Full Résumé →" className="!px-6 !py-3" />
@@ -35,7 +35,7 @@ function ExperienceItem({ item, index, isLast }: { item: typeof experience[0]; i
 
     return (
         <div ref={ref} className={`transition-all duration-[1000ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`} style={{ transitionDelay: `${index * 120}ms` }}>
-            <div className={`group py-10 hover:bg-[var(--bg-secondary)] transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] -mx-4 px-4 rounded-xl ${!isLast ? 'border-b border-[var(--border)]' : ''}`}>
+            <div className={`group py-8 sm:py-10 lg:py-12 hover:bg-[var(--bg-secondary)] transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] -mx-4 px-4 sm:-mx-6 sm:px-6 rounded-xl ${!isLast ? 'border-b border-[var(--border)]' : ''}`}>
                 <div className="grid md:grid-cols-12 gap-4 md:gap-8">
                     <div className="md:col-span-3 xl:col-span-2">
                         <span className="font-mono text-sm text-[var(--text-muted)] uppercase tracking-wide">{item.period}</span>

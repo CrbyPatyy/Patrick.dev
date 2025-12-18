@@ -31,7 +31,7 @@ export default function Services() {
     const [hoveredId, setHoveredId] = useState<number | null>(null);
 
     return (
-        <section id="services" className="py-24 lg:py-32 bg-[var(--bg-secondary)]">
+        <section id="services" className="py-28 lg:py-40 bg-[var(--bg-secondary)]">
             <div className="container">
                 {/* Header */}
                 <div
