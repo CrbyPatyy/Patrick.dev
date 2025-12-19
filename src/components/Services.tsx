@@ -31,14 +31,14 @@ export default function Services() {
     const [hoveredId, setHoveredId] = useState<number | null>(null);
 
     return (
-        <section id="services" className="py-28 lg:py-40 bg-[var(--bg-secondary)]">
-            <div className="container">
+        <section id="services" className="py-24 lg:py-32 bg-[var(--bg-secondary)]">
+            <div className="container max-w-6xl">
                 {/* Header */}
                 <div
                     ref={headerRef}
                     className={`pb-8 border-b border-[var(--border)] transition-all duration-1000 ${headerVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}
                 >
-                    <p className="text-xs text-[var(--text-muted)] uppercase tracking-[0.2em]">What I Offer</p>
+                    <p className="section-label">What I Offer</p>
                 </div>
 
                 {/* Service list - stacked vertically with dividers */}

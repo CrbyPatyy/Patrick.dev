@@ -38,12 +38,12 @@ export default function Hero() {
                     transform: `scale(${1 - scrollProgress * 0.1}) translateY(${scrollProgress * -50}px)`,
                 }}
             >
-                <div className="container text-center">
+                <div className="container text-center max-w-5xl">
                     {/* Status Badge */}
                     <div
-                        className={`inline-flex items-center gap-3 mb-10 px-5 py-2.5 rounded-full bg-white/60 backdrop-blur-sm border border-black/5 shadow-sm transition-all duration-1000 ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+                        className={`inline-flex items-center gap-3 mb-12 px-5 py-2.5 rounded-full bg-white/60 backdrop-blur-sm border border-black/5 shadow-sm transition-all duration-1000 ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
                             }`}
-                        style={{ transitionDelay: '0.3s' }}
+                        style={{ transitionDelay: '0.2s' }}
                     >
                         <span className="relative flex h-2.5 w-2.5">
                             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
@@ -54,36 +54,35 @@ export default function Hero() {
                         </span>
                     </div>
 
-                    <div className="overflow-hidden mb-2">
+                    {/* Name - Signature stagger effect for wow factor */}
+                    <div className="overflow-hidden mb-6">
                         <h1
-                            className={`text-[clamp(5rem,20vw,16rem)] uppercase tracking-[-0.02em] leading-[0.85] cursor-invert-target ${loaded ? 'opacity-100' : 'opacity-0'
+                            className={`text-[clamp(4rem,15vw,8rem)] md:text-[clamp(5rem,18vw,10rem)] font-medium uppercase tracking-tight leading-[0.9] transition-opacity duration-1000 ${loaded ? 'opacity-100' : 'opacity-0'
                                 }`}
                             style={{
-                                transitionDelay: '0.4s',
+                                transitionDelay: '0.3s',
                                 fontFamily: 'var(--font-bebas), sans-serif',
                             }}
                         >
                             <span className="text-neutral-900">
-                                {loaded ? <StaggerText text="Patrick" delay={400} /> : "Patrick"}
+                                {loaded ? <StaggerText text="Patrick" delay={300} /> : "Patrick"}
                             </span>
                             <span className="text-neutral-300">.</span>
                         </h1>
                     </div>
 
-                    {/* Role with accent styling */}
-                    <div className="overflow-hidden mb-6">
-                        <p
-                            className={`text-xl md:text-2xl lg:text-3xl text-neutral-500 font-light tracking-tight transition-all duration-1000 ${loaded ? 'translate-y-0 opacity-100' : 'translate-y-full opacity-0'
-                                }`}
-                            style={{ transitionDelay: '0.5s' }}
-                        >
-                            <span className="font-medium text-neutral-800">Creative</span> Developer
-                        </p>
-                    </div>
-
-                    {/* Brief tagline with better styling */}
+                    {/* Role - Clear hierarchy */}
                     <p
-                        className={`text-neutral-500 max-w-lg mx-auto mb-14 text-lg leading-relaxed transition-all duration-1000 ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+                        className={`text-2xl md:text-3xl lg:text-4xl text-neutral-600 font-light tracking-tight mb-8 transition-all duration-1000 ${loaded ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
+                            }`}
+                        style={{ transitionDelay: '0.5s' }}
+                    >
+                        <span className="font-medium text-neutral-800">Creative</span> Developer
+                    </p>
+
+                    {/* Brief tagline */}
+                    <p
+                        className={`text-neutral-500 max-w-2xl mx-auto mb-16 text-lg md:text-xl leading-relaxed transition-all duration-1000 ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
                             }`}
                         style={{ transitionDelay: '0.6s' }}
                     >
@@ -92,24 +91,27 @@ export default function Hero() {
                         that blend <span className="text-neutral-700 font-medium">form</span> with <span className="text-neutral-700 font-medium">function</span>.
                     </p>
 
-                    {/* CTA Buttons with improved styling */}
+                    {/* CTA Buttons - Improved visibility */}
                     <div
-                        className={`flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 transition-all duration-1000 ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+                        className={`flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 transition-all duration-1000 ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
                             }`}
                         style={{ transitionDelay: '0.7s' }}
                     >
-                        <a href="#projects" className="btn btn-primary !p-0 shadow-lg shadow-black/10 hover:shadow-xl hover:shadow-black/15 transition-shadow">
-                            <MagneticText text="View projects" className="!px-8 !py-4" />
+                        <a
+                            href="#projects"
+                            className="btn btn-primary !p-0 shadow-lg shadow-black/15 hover:shadow-2xl hover:shadow-black/20 transition-all duration-500"
+                        >
+                            <MagneticText text="View projects" className="!px-10 !py-5 text-base" />
                         </a>
-                        <a href="#contact" className="group flex items-center gap-2">
-                            <MagneticText text="Get in touch" className="!px-0 !py-0 text-sm text-neutral-600 hover:text-neutral-900" />
+                        <a href="#contact" className="group flex items-center gap-2 text-neutral-600 hover:text-neutral-900 transition-colors">
+                            <span className="text-base font-medium">Get in touch</span>
                             <span className="text-neutral-400 group-hover:translate-x-1 transition-transform">→</span>
                         </a>
                     </div>
                 </div>
             </div>
 
-            {/* Scroll Indicator - enhanced */}
+            {/* Scroll Indicator */}
             <div
                 className="absolute bottom-10 left-1/2 -translate-x-1/2 transition-opacity duration-500"
                 style={{ opacity: loaded && scrollProgress < 0.3 ? 1 : 0 }}

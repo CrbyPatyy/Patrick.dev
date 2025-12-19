@@ -109,11 +109,21 @@
 
   /* ===== Section ===== */
   .section {
-    padding: 10rem 0;
+    padding: 6rem 0;
   }
 
   .section-lg {
-    padding: 15rem 0;
+    padding: 8rem 0;
+  }
+
+  @media (min-width: 1024px) {
+    .section {
+      padding: 8rem 0;
+    }
+
+    .section-lg {
+      padding: 10rem 0;
+    }
   }
 
   /* ===== Cards ===== */
@@ -181,11 +191,12 @@
   .btn-primary {
     background: var(--accent);
     color: white;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   }
 
   .btn-primary:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
   }
 
   .btn-primary:active {
@@ -362,11 +373,10 @@
 
   /* ===== Background Grid ===== */
   .bg-grid {
-    background-size: 40px 40px;
+    background-size: 48px 48px;
     background-image:
-      linear-gradient(to right, rgba(0, 0, 0, 0.05) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
-    /* Masking is now handled dynamically in InteractiveGrid.tsx */
+      linear-gradient(to right, rgba(0, 0, 0, 0.02) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(0, 0, 0, 0.02) 1px, transparent 1px);
   }
 }
 
@@ -383,6 +393,43 @@
     overflow: hidden;
   }
 
+  /* ===== Typography Hierarchy ===== */
+  .section-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+
+  .heading-hero {
+    font-size: clamp(4rem, 15vw, 8rem);
+    font-weight: 500;
+    letter-spacing: -0.04em;
+    line-height: 0.95;
+  }
+
+  .heading-section {
+    font-size: clamp(2.5rem, 8vw, 5rem);
+    font-weight: 500;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+  }
+
+  .heading-subsection {
+    font-size: clamp(1.5rem, 4vw, 2.5rem);
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+  }
+
+  .heading-card {
+    font-size: clamp(1.25rem, 3vw, 1.875rem);
+    font-weight: 500;
+    letter-spacing: -0.015em;
+  }
+
+  /* Legacy support - deprecate gradually */
   .heading-xl {
     font-size: clamp(3.5rem, 12vw, 8rem);
     font-weight: 400;
@@ -605,7 +652,7 @@
     inset: 0;
     z-index: 9998;
     pointer-events: none;
-    opacity: 0.035;
+    opacity: 0.015;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect filter='url(%23n)' width='100%25' height='100%25'/%3E%3C/svg%3E");
   }
 

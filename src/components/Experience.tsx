@@ -3,23 +3,18 @@
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import { experience } from '@/data/experience';
 import MagneticText from './MagneticText';
-import StaggerText from './StaggerText';
 
 export default function Experience() {
     const [headerRef, headerVisible] = useScrollReveal<HTMLDivElement>();
 
     return (
-        <section id="experience" className="min-h-screen flex items-center py-28 lg:py-40">
-            <div className="container">
-                <div ref={headerRef} className={`flex flex-col md:flex-row md:items-end justify-between gap-4 mb-16 transition-all duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${headerVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-16'}`}>
+        <section id="experience" className="py-24 lg:py-32">
+            <div className="container max-w-7xl">
+                <div ref={headerRef} className={`flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16 transition-all duration-[1200ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${headerVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-16'}`}>
                     <div>
-                        <p className="text-xs text-[var(--text-muted)] uppercase tracking-[0.2em] mb-4">Career Path</p>
-                        <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-normal tracking-tight">
-                            {headerVisible && <StaggerText text="Work" tag="span" />}
-                            {!headerVisible && <span style={{ opacity: 0 }}>Work</span>}
-                            <br />
-                            {headerVisible && <StaggerText text="Experience" tag="span" delay={150} />}
-                            {!headerVisible && <span style={{ opacity: 0 }}>Experience</span>}
+                        <p className="section-label mb-6">Career Path</p>
+                        <h2 className="heading-section">
+                            Work<br />Experience
                         </h2>
                     </div>
                     <a href="/Patrick%20Villanueva%20Resume.pdf" target="_blank" className="btn btn-secondary !p-0">

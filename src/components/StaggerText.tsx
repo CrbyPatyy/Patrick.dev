@@ -36,48 +36,29 @@ export default function StaggerText({
         return () => observer.disconnect();
     }, []);
 
-    // Split into words to prevent word breaks
-    const words = text.split(' ');
-    let globalCharIndex = 0;
+    // Character-by-character animation for wow factor
+    const chars = text.split('');
 
     return (
         <Tag
             ref={ref as React.RefObject<HTMLHeadingElement>}
             className={className}
-            style={{ display: 'inline' }}
+            style={{ display: 'inline-block' }}
         >
-            {words.map((word, wordIndex) => (
-                <span key={wordIndex} style={{ display: 'inline-block', whiteSpace: 'nowrap' }}>
-                    {word.split('').map((char) => {
-                        const charDelay = delay + globalCharIndex * 30;
-                        globalCharIndex++;
-                        return (
-                            <span
-                                key={`${wordIndex}-${globalCharIndex}`}
-                                style={{
-                                    display: 'inline-block',
-                                    opacity: isVisible ? 1 : 0,
-                                    transform: isVisible ? 'translateY(0)' : 'translateY(100%)',
-                                    transition: 'opacity 0.4s ease-out, transform 0.4s ease-out',
-                                    transitionDelay: isVisible ? `${charDelay}ms` : '0ms',
-                                }}
-                            >
-                                {char}
-                            </span>
-                        );
-                    })}
-                    {wordIndex < words.length - 1 && (
-                        <span style={{
-                            display: 'inline',
-                            opacity: isVisible ? 1 : 0,
-                            transition: 'opacity 0.4s ease-out',
-                            transitionDelay: isVisible ? `${delay + globalCharIndex * 30}ms` : '0ms',
-                        }}>&nbsp;</span>
-                    )}
+            {chars.map((char, index) => (
+                <span
+                    key={index}
+                    style={{
+                        display: 'inline-block',
+                        opacity: isVisible ? 1 : 0,
+                        transform: isVisible ? 'translateY(0)' : 'translateY(100%)',
+                        transition: 'opacity 0.5s ease-out, transform 0.5s ease-out',
+                        transitionDelay: isVisible ? `${delay + index * 40}ms` : '0ms',
+                    }}
+                >
+                    {char === ' ' ? '\u00A0' : char}
                 </span>
             ))}
         </Tag>
     );
 }
-
-

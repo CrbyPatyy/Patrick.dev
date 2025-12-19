@@ -3,7 +3,6 @@
 import { useRef, useEffect, useState } from 'react';
 import { sendEmail } from '@/app/actions/sendEmail';
 import MagneticText from './MagneticText';
-import StaggerText from './StaggerText';
 
 export default function Contact() {
     const ref = useRef<HTMLDivElement>(null);
@@ -48,21 +47,14 @@ export default function Contact() {
     const isActive = (field: string) => focused === field || form[field as keyof typeof form];
 
     return (
-        <section id="contact" className="min-h-screen flex items-center py-20 bg-[var(--bg-primary)]">
-            <div className="container mx-auto max-w-7xl">
+        <section id="contact" className="py-24 lg:py-32 bg-[var(--bg-primary)]">
+            <div className="container mx-auto max-w-6xl">
                 <div ref={ref} className={`grid lg:grid-cols-2 gap-12 lg:gap-20 items-start transition-all duration-1000 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
                     {/* Left side - Info */}
                     <div className="text-center lg:text-left">
-                        <p className="text-xs text-[var(--text-muted)] uppercase tracking-[0.2em] mb-6 font-medium">Get in Touch</p>
-                        <h2 className="text-4xl md:text-5xl lg:text-6xl font-normal tracking-tight leading-[1.1] mb-8 text-[var(--text-primary)]">
-                            {visible && <StaggerText text="Let's build" tag="span" />}
-                            {!visible && <span style={{ opacity: 0 }}>Let&apos;s build</span>}
-                            <br />
-                            {visible && <StaggerText text="something" tag="span" delay={200} />}
-                            {!visible && <span style={{ opacity: 0 }}>something</span>}
-                            <br />
-                            {visible && <StaggerText text="great." tag="span" delay={400} />}
-                            {!visible && <span style={{ opacity: 0 }}>great.</span>}
+                        <p className="section-label mb-6">Get in Touch</p>
+                        <h2 className="heading-section mb-8">
+                            Let's build<br />something<br />great.
                         </h2>
                         <p className="text-base sm:text-lg text-[var(--text-secondary)] mb-10 max-w-md mx-auto lg:mx-0 leading-relaxed">Have a project in mind? I&apos;d love to hear about it. Let&apos;s create something amazing together.</p>
 

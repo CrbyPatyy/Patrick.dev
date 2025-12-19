@@ -2,7 +2,6 @@
 
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import MagneticText from './MagneticText';
-import StaggerText from './StaggerText';
 
 export default function About() {
     const [ref, visible] = useScrollReveal<HTMLDivElement>();
@@ -14,18 +13,17 @@ export default function About() {
     ];
 
     return (
-        <section id="about" className="min-h-screen flex items-center py-28 lg:py-40 bg-[var(--bg-secondary)]">
-            <div className="container">
-                <div ref={ref} className={`grid lg:grid-cols-12 gap-16 lg:gap-24 transition-all duration-1000 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
+        <section id="about" className="py-24 lg:py-32 bg-[var(--bg-secondary)]">
+            <div className="container max-w-6xl">
+                <div ref={ref} className={`grid lg:grid-cols-12 gap-12 lg:gap-20 transition-all duration-1000 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
                     <div className="lg:col-span-7">
-                        <p className="text-xs text-[var(--text-muted)] uppercase tracking-[0.2em] mb-6">About Me</p>
-                        <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-normal leading-[1.15] tracking-tight mb-8">
-                            {visible && <StaggerText text="I build digital products that are " tag="span" />}
-                            {visible && <StaggerText text="intuitive, performant, " tag="span" delay={600} className="text-[var(--text-muted)]" />}
-                            {visible && <StaggerText text="and designed to scale." tag="span" delay={1000} />}
-                            {!visible && <span style={{ opacity: 0 }}>I build digital products that are intuitive, performant, and designed to scale.</span>}
+                        <p className="section-label mb-6">About Me</p>
+                        <h2 className="heading-subsection mb-8">
+                            I build digital products that are{' '}
+                            <span className="text-[var(--text-muted)]">intuitive, performant,</span>{' '}
+                            and designed to scale.
                         </h2>
-                        <p className="text-base sm:text-lg text-[var(--text-secondary)] leading-relaxed max-w-xl mb-12">
+                        <p className="text-base sm:text-lg text-[var(--text-secondary)] leading-relaxed max-w-2xl mb-12">
                             With experience across the full development stack, I focus on creating seamless user experiences backed by clean, maintainable code. Currently based in Manila, available worldwide.
                         </p>
                         <div className="flex flex-wrap gap-4">
@@ -39,14 +37,14 @@ export default function About() {
                     </div>
                     <div className="lg:col-span-5">
                         <div className="lg:pl-8 lg:border-l border-[var(--border)]">
-                            <p className="text-xs text-[var(--text-muted)] uppercase tracking-[0.2em] mb-8">Tech Stack</p>
+                            <p className="section-label mb-8">Tech Stack</p>
                             <div className="space-y-8">
                                 {stack.map((group, groupIdx) => (
                                     <div key={group.category} className={`transition-all duration-700 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`} style={{ transitionDelay: `${300 + groupIdx * 100}ms` }}>
-                                        <p className="text-sm text-[var(--text-muted)] mb-4">{group.category}</p>
+                                        <p className="text-sm text-[var(--text-muted)] font-medium mb-4">{group.category}</p>
                                         <div className="flex flex-wrap gap-3">
                                             {group.items.map((item) => (
-                                                <span key={item} className="px-4 py-2 text-sm bg-white border border-[var(--border)] rounded-full hover:border-[var(--border-hover)] transition-colors">{item}</span>
+                                                <span key={item} className="px-4 py-2 text-sm bg-white border border-[var(--border)] rounded-full hover:border-[var(--border-hover)] hover:bg-[var(--bg-tertiary)] transition-all duration-300 cursor-default">{item}</span>
                                             ))}
                                         </div>
                                     </div>
