@@ -3,6 +3,7 @@
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import { experience } from '@/data/experience';
 import MagneticText from './MagneticText';
+import StaggerText from './StaggerText';
 
 export default function Experience() {
     const [headerRef, headerVisible] = useScrollReveal<HTMLDivElement>();
@@ -14,7 +15,8 @@ export default function Experience() {
                     <div>
                         <p className="section-label mb-6">Career Path</p>
                         <h2 className="heading-section">
-                            Work<br />Experience
+                            {headerVisible ? <StaggerText text="Work" delay={0} /> : "Work"}<br />
+                            {headerVisible ? <StaggerText text="Experience" delay={200} /> : "Experience"}
                         </h2>
                     </div>
                     <a href="/Patrick%20Villanueva%20Resume.pdf" target="_blank" className="btn btn-secondary !p-0">

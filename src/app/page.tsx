@@ -8,6 +8,8 @@ import Services from '@/components/Services';
 import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
 import ScrollProgress from '@/components/ScrollProgress';
+import Marquee from '@/components/Marquee';
+import ScrollSection from '@/components/ScrollSection';
 
 export default function Home() {
     return (
@@ -26,22 +28,44 @@ export default function Home() {
 
             <main id="main-content">
                 <Hero />
-                <ScrollStatement
-                    primary="I build digital experiences"
-                    secondary="that blend form with function."
-                />
-                <Experience />
-                <ScrollStatement
-                    primary="Crafting solutions"
-                    secondary="one line of code at a time."
-                />
-                <Projects />
-                <About />
-                <Services />
-                <Contact />
+
+                <ScrollSection animation="fade">
+                    <ScrollStatement
+                        primary="I build digital experiences"
+                        secondary="that blend form with function."
+                    />
+                </ScrollSection>
+
+                <ScrollSection animation="slide-up">
+                    <Experience />
+                </ScrollSection>
+
+                <ScrollSection animation="fade">
+                    <ScrollStatement
+                        primary="Crafting solutions"
+                        secondary="one line of code at a time."
+                    />
+                </ScrollSection>
+
+                <ScrollSection animation="slide-up" delay={0.1}>
+                    <Projects />
+                </ScrollSection>
+
+                <ScrollSection animation="scale">
+                    <About />
+                </ScrollSection>
+
+                <ScrollSection animation="slide-up">
+                    <Services />
+                </ScrollSection>
+
+                <ScrollSection animation="slide-up">
+                    <Contact />
+                </ScrollSection>
             </main>
 
             <Footer />
         </>
     );
 }
+

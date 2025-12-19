@@ -1,54 +1,103 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
-
-// Note: Using framer-motion here for easier follow-physics if the user has it, 
-// but I'll stick to raw CSS/Spring if they don't. 
-// Checking package.json... they don't have framer-motion.
-// I'll implement with raw React/CSS for performance and no extra dependencies.
+import { useEffect, useRef } from 'react';
+import gsap from 'gsap';
 
 interface ProjectHoverPreviewProps {
     activeId: number | null;
-    projects: any[];
+    projects: Array<{
+        id: number;
+        title: string;
+        image?: string;
+    }>;
 }
 
 export default function ProjectHoverPreview({ activeId, projects }: ProjectHoverPreviewProps) {
-    const [position, setPosition] = useState({ x: 0, y: 0 });
     const previewRef = useRef<HTMLDivElement>(null);
+    const imageContainerRef = useRef<HTMLDivElement>(null);
+    const pos = useRef({ x: 0, y: 0 });
+    const mouse = useRef({ x: 0, y: 0 });
 
     useEffect(() => {
         const handleMouseMove = (e: MouseEvent) => {
-            // Offset to position relative to cursor
-            setPosition({ x: e.clientX + 20, y: e.clientY + 20 });
+            mouse.current = { x: e.clientX + 30, y: e.clientY + 30 };
+        };
+
+        const animate = () => {
+            // Smooth lerp follow
+            pos.current.x += (mouse.current.x - pos.current.x) * 0.1;
+            pos.current.y += (mouse.current.y - pos.current.y) * 0.1;
+
+            if (previewRef.current) {
+                previewRef.current.style.transform = `translate3d(${pos.current.x}px, ${pos.current.y}px, 0)`;
+            }
+
+            requestAnimationFrame(animate);
         };
 
         window.addEventListener('mousemove', handleMouseMove);
-        return () => window.removeEventListener('mousemove', handleMouseMove);
+        requestAnimationFrame(animate);
+
+        return () => {
+            window.removeEventListener('mousemove', handleMouseMove);
+        };
     }, []);
+
+    // Animate in/out based on activeId
+    useEffect(() => {
+        if (!imageContainerRef.current) return;
+
+        if (activeId) {
+            gsap.to(imageContainerRef.current, {
+                opacity: 1,
+                scale: 1,
+                duration: 0.4,
+                ease: 'power3.out',
+            });
+        } else {
+            gsap.to(imageContainerRef.current, {
+                opacity: 0,
+                scale: 0.8,
+                duration: 0.3,
+                ease: 'power3.in',
+            });
+        }
+    }, [activeId]);
 
     const activeProject = projects.find(p => p.id === activeId);
 
     return (
-        <div
-            className="fixed inset-0 pointer-events-none z-[8888] overflow-hidden"
-        >
+        <div className="fixed inset-0 pointer-events-none z-[8888] overflow-hidden hidden lg:block">
             <div
                 ref={previewRef}
-                className="absolute transition-all duration-700 ease-[cubic-bezier(0.23,1,0.32,1)]"
-                style={{
-                    transform: `translate(${position.x}px, ${position.y}px)`,
-                    opacity: activeId ? 1 : 0,
-                    scale: activeId ? 1 : 0.8,
-                }}
+                className="absolute top-0 left-0"
             >
-                <div className="w-64 h-40 bg-neutral-900 rounded-xl overflow-hidden shadow-2xl border border-white/10 flex items-center justify-center relative">
-                    {/* If we had images, we'd put them here. For now, a stylish placeholder */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-neutral-800 to-neutral-900" />
-                    <div className="z-10 text-white/20 font-bebas text-4xl uppercase tracking-widest">
-                        {activeProject?.title?.split(' ')[0]}
+                <div
+                    ref={imageContainerRef}
+                    className="w-72 h-44 rounded-xl overflow-hidden shadow-2xl"
+                    style={{ opacity: 0, transform: 'scale(0.8)' }}
+                >
+                    {/* Preview container with gradient background */}
+                    <div className="relative w-full h-full bg-neutral-900">
+                        {/* Animated gradient background */}
+                        <div className="absolute inset-0 bg-gradient-to-br from-neutral-800 via-neutral-900 to-black" />
+
+                        {/* Project title overlay */}
+                        <div className="absolute inset-0 flex items-center justify-center">
+                            <span
+                                className="text-5xl font-medium text-white/10 uppercase tracking-widest"
+                                style={{ fontFamily: 'var(--font-bebas), sans-serif' }}
+                            >
+                                {activeProject?.title?.split(' ')[0]}
+                            </span>
+                        </div>
+
+                        {/* Shine effect */}
+                        <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-transparent" />
+
+                        {/* Border glow */}
+                        <div className="absolute inset-0 rounded-xl ring-1 ring-white/10" />
                     </div>
-                    {/* Subtle glow effect */}
-                    <div className="absolute -inset-1 bg-white/5 blur-lg" />
                 </div>
             </div>
         </div>

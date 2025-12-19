@@ -2,6 +2,7 @@
 
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import MagneticText from './MagneticText';
+import StaggerText from './StaggerText';
 
 export default function About() {
     const [ref, visible] = useScrollReveal<HTMLDivElement>();
@@ -19,9 +20,11 @@ export default function About() {
                     <div className="lg:col-span-7">
                         <p className="section-label mb-6">About Me</p>
                         <h2 className="heading-subsection mb-8">
-                            I build digital products that are{' '}
-                            <span className="text-[var(--text-muted)]">intuitive, performant,</span>{' '}
-                            and designed to scale.
+                            {visible ? <StaggerText text="I build digital products that are " delay={0} /> : "I build digital products that are "}
+                            <span className="text-[var(--text-muted)]">
+                                {visible ? <StaggerText text="intuitive, performant," delay={400} /> : "intuitive, performant,"}
+                            </span>{' '}
+                            {visible ? <StaggerText text="and designed to scale." delay={600} /> : "and designed to scale."}
                         </h2>
                         <p className="text-base sm:text-lg text-[var(--text-secondary)] leading-relaxed max-w-2xl mb-12">
                             With experience across the full development stack, I focus on creating seamless user experiences backed by clean, maintainable code. Currently based in Manila, available worldwide.

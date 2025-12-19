@@ -105,7 +105,7 @@ function ServiceItem({ service, index, isHovered, onHover, onLeave }: ServiceIte
                 {/* Arrow indicator - points down when hovered */}
                 <div className={`flex items-center justify-center w-10 h-10 rounded-full border transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${isHovered ? 'border-[var(--accent)] bg-[var(--accent)] text-white' : 'border-[var(--border)] text-[var(--text-muted)]'}`}>
                     <svg
-                        className={`w-5 h-5 transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${isHovered ? 'rotate-180' : 'rotate-0'}`}
+                        className={`w-5 h-5 transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${isHovered ? 'rotate-0' : 'rotate-180'}`}
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"

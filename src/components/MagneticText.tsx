@@ -14,7 +14,7 @@ export default function MagneticText({ text, className = "" }: TextRevealProps) 
 
     return (
         <div
-            className={`relative inline-flex items-center justify-center cursor-pointer ${className}`}
+            className={`relative inline-flex items-center justify-center cursor-pointer overflow-hidden ${className}`}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
         >

@@ -1,38 +1,89 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import gsap from 'gsap';
 
 export default function LoadingScreen() {
     const [loading, setLoading] = useState(true);
-    const [fadeOut, setFadeOut] = useState(false);
-    const [showLetters, setShowLetters] = useState(false);
-
-    const letters = ['P', 'a', 't', 'r', 'i', 'c', 'k', '.'];
+    const containerRef = useRef<HTMLDivElement>(null);
+    const progressRef = useRef<HTMLDivElement>(null);
+    const counterRef = useRef<HTMLSpanElement>(null);
+    const textRef = useRef<HTMLDivElement>(null);
+    const lineRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         // Check if already loaded this session
         if (sessionStorage.getItem('loaded')) {
             setLoading(false);
+            window.dispatchEvent(new CustomEvent('loaderComplete'));
             return;
         }
 
-        // Start letter reveal after a brief delay
-        const revealTimer = setTimeout(() => {
-            setShowLetters(true);
-        }, 200);
+        const container = containerRef.current;
+        const counter = counterRef.current;
+        const text = textRef.current;
+        const line = lineRef.current;
+        const progress = progressRef.current;
 
-        // Wait for loading bar animation to complete, then fade out
-        const timer = setTimeout(() => {
-            setFadeOut(true);
-            setTimeout(() => {
-                setLoading(false);
-                sessionStorage.setItem('loaded', 'true');
-            }, 800);
-        }, 3000);
+        if (!container || !counter || !text || !line || !progress) return;
+
+        // Animate counter from 0 to 100
+        const counterObj = { value: 0 };
+
+        // Entry animation
+        gsap.fromTo(text,
+            { y: 40, opacity: 0 },
+            { y: 0, opacity: 1, duration: 0.8, ease: 'power3.out', delay: 0.2 }
+        );
+
+        gsap.fromTo(line,
+            { scaleX: 0 },
+            { scaleX: 1, duration: 0.6, ease: 'power2.inOut', delay: 0.4 }
+        );
+
+        // Counter animation
+        gsap.to(counterObj, {
+            value: 100,
+            duration: 2,
+            ease: 'power2.inOut',
+            onUpdate: () => {
+                const val = Math.round(counterObj.value);
+                counter.textContent = String(val).padStart(3, '0');
+                progress.style.width = `${val}%`;
+            },
+        });
+
+        // Exit animation
+        const exitTimeline = gsap.timeline({ delay: 2.3 });
+
+        exitTimeline
+            .to([counter, text], {
+                y: -30,
+                opacity: 0,
+                duration: 0.5,
+                ease: 'power3.in',
+                stagger: 0.05,
+            })
+            .to(line, {
+                scaleX: 0,
+                duration: 0.4,
+                ease: 'power2.in',
+            }, '-=0.3')
+            .to(container, {
+                yPercent: -100,
+                duration: 0.8,
+                ease: 'power3.inOut',
+                onStart: () => {
+                    window.dispatchEvent(new CustomEvent('loaderComplete'));
+                },
+                onComplete: () => {
+                    setLoading(false);
+                    sessionStorage.setItem('loaded', 'true');
+                },
+            }, '-=0.2');
 
         return () => {
-            clearTimeout(timer);
-            clearTimeout(revealTimer);
+            exitTimeline.kill();
         };
     }, []);
 
@@ -40,47 +91,44 @@ export default function LoadingScreen() {
 
     return (
         <div
-            className={`fixed inset-0 z-[100] bg-white flex items-center justify-center transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${fadeOut ? 'opacity-0' : 'opacity-100'
-                }`}
+            ref={containerRef}
+            className="fixed inset-0 z-[100] bg-neutral-900 flex flex-col items-center justify-center"
         >
+            {/* Logo/Name */}
             <div
-                className={`text-center transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${fadeOut ? 'scale-90 translate-y-8' : 'scale-100 translate-y-0'
-                    }`}
+                ref={textRef}
+                className="absolute top-8 left-8 text-white/80 text-sm tracking-widest uppercase"
             >
-                {/* Logo/Name with letter-by-letter reveal */}
-                <div className="overflow-hidden mb-6">
-                    <div className="flex items-center justify-center">
-                        {letters.map((letter, index) => (
-                            <span
-                                key={index}
-                                className={`text-4xl md:text-6xl font-normal tracking-tight inline-block transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${letter === '.' ? 'text-[var(--text-muted)]' : ''
-                                    } ${fadeOut
-                                        ? 'opacity-0 translate-y-12 scale-75'
-                                        : showLetters
-                                            ? 'opacity-100 translate-y-0 scale-100'
-                                            : 'opacity-0 translate-y-8'
-                                    }`}
-                                style={{
-                                    transitionDelay: fadeOut
-                                        ? `${(letters.length - 1 - index) * 30}ms`
-                                        : `${index * 60}ms`
-                                }}
-                            >
-                                {letter}
-                            </span>
-                        ))}
-                    </div>
-                </div>
+                Patrick<span className="text-white/40">.</span>
+            </div>
 
-                {/* Loading bar */}
-                <div
-                    className={`w-48 h-0.5 bg-[var(--border)] rounded-full overflow-hidden mx-auto transition-all duration-500 ${fadeOut ? 'opacity-0 scale-x-0' : 'opacity-100 scale-x-100'
-                        }`}
+            {/* Counter */}
+            <div className="relative">
+                <span
+                    ref={counterRef}
+                    className="text-[clamp(5rem,20vw,12rem)] font-light text-white tracking-tighter tabular-nums"
+                    style={{ fontFamily: 'var(--font-bebas), sans-serif' }}
                 >
-                    <div
-                        className="h-full bg-[var(--accent)] rounded-full animate-loading-bar"
-                    />
-                </div>
+                    000
+                </span>
+            </div>
+
+            {/* Progress bar */}
+            <div className="absolute bottom-0 left-0 right-0 h-1 bg-white/10">
+                <div
+                    ref={progressRef}
+                    className="h-full bg-white origin-left"
+                    style={{ width: '0%' }}
+                />
+            </div>
+
+            {/* Bottom text */}
+            <div
+                ref={lineRef}
+                className="absolute bottom-8 left-8 right-8 flex items-center justify-between text-white/50 text-xs uppercase tracking-widest origin-left"
+            >
+                <span>Loading</span>
+                <span>Portfolio 2025</span>
             </div>
         </div>
     );

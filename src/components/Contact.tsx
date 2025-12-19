@@ -3,6 +3,7 @@
 import { useRef, useEffect, useState } from 'react';
 import { sendEmail } from '@/app/actions/sendEmail';
 import MagneticText from './MagneticText';
+import StaggerText from './StaggerText';
 
 export default function Contact() {
     const ref = useRef<HTMLDivElement>(null);
@@ -54,7 +55,9 @@ export default function Contact() {
                     <div className="text-center lg:text-left">
                         <p className="section-label mb-6">Get in Touch</p>
                         <h2 className="heading-section mb-8">
-                            Let's build<br />something<br />great.
+                            {visible ? <StaggerText text="Let's build" delay={0} /> : "Let's build"}<br />
+                            {visible ? <StaggerText text="something" delay={200} /> : "something"}<br />
+                            {visible ? <StaggerText text="great." delay={400} /> : "great."}
                         </h2>
                         <p className="text-base sm:text-lg text-[var(--text-secondary)] mb-10 max-w-md mx-auto lg:mx-0 leading-relaxed">Have a project in mind? I&apos;d love to hear about it. Let&apos;s create something amazing together.</p>
 

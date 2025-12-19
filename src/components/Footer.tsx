@@ -32,12 +32,12 @@ export default function Footer() {
     };
 
     return (
-        <footer className="py-24 lg:py-36 border-t border-[var(--border)] bg-[var(--bg-secondary)]">
+        <footer className="py-24 lg:py-36 border-t border-white/10 bg-neutral-900">
             <div className="container">
                 {/* Large logo */}
                 <div ref={logoRef} id="footer-logo" className={`text-center mb-16 transition-all duration-1000 ${visible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
                     <span
-                        className="text-[clamp(4rem,15vw,12rem)] uppercase tracking-[-0.02em] leading-[0.85] text-neutral-300 select-none"
+                        className="text-[clamp(4rem,15vw,12rem)] uppercase tracking-[-0.02em] leading-[0.85] text-white/80 select-none"
                         style={{ fontFamily: 'var(--font-bebas), sans-serif' }}
                     >
                         <span id="footer-p" className="inline-block">P</span>ATRICK
@@ -48,7 +48,8 @@ export default function Footer() {
                 <div className="flex justify-center mb-12">
                     <button
                         onClick={scrollToTop}
-                        className="btn btn-secondary !p-0 group"
+                        className="btn btn-secondary !p-0 group !bg-white !border-white !text-black hover:!bg-neutral-100"
+                        data-light-bg="true"
                     >
                         <div className="flex items-center gap-3 px-6 py-3">
                             <svg className="w-4 h-4 rotate-180 group-hover:-translate-y-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -60,7 +61,7 @@ export default function Footer() {
                 </div>
 
                 {/* Footer content */}
-                <div className="grid grid-cols-1 md:grid-cols-3 items-center gap-8 text-sm text-[var(--text-muted)]">
+                <div className="grid grid-cols-1 md:grid-cols-3 items-center gap-8 text-sm text-neutral-400">
                     <p className="text-center md:text-left">© {new Date().getFullYear()} Patrick. All rights reserved.</p>
 
                     {/* Social links with icons */}
@@ -71,8 +72,9 @@ export default function Footer() {
                                 href={social.url}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="btn btn-secondary !p-0 group"
+                                className="btn btn-secondary !p-0 group !bg-white !border-white !text-black hover:!bg-neutral-100"
                                 aria-label={`Visit ${social.name} profile`}
+                                data-light-bg="true"
                             >
                                 <div className="flex items-center gap-2 px-5 py-2.5">
                                     <span className="group-hover:scale-110 transition-transform duration-300">{social.icon}</span>

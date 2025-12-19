@@ -3,7 +3,8 @@ import { Inter, Syne, Bebas_Neue } from 'next/font/google';
 import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
 import LoadingScreen from "@/components/LoadingScreen";
-import CustomCursor from "@/components/CustomCursor";
+import EnhancedCursor from "@/components/EnhancedCursor";
+import { PageTransitionProvider } from "@/components/PageTransition";
 
 const inter = Inter({
     subsets: ['latin'],
@@ -60,16 +61,18 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en" suppressHydrationWarning className={`${inter.variable} ${syne.variable} ${bebasNeue.variable}`}>
-            <body className={`${inter.className} antialiased min-h-screen relative`}>
+            <body className={`${inter.className} antialiased min-h-screen relative`} suppressHydrationWarning>
                 {/* Global Backgrounds */}
                 <div className="fixed inset-0 z-[-1] bg-grid pointer-events-none" aria-hidden="true" />
                 <div className="noise" />
 
-                <LoadingScreen />
-                <CustomCursor />
-                <SmoothScroll>
-                    {children}
-                </SmoothScroll>
+                <PageTransitionProvider>
+                    <LoadingScreen />
+                    <EnhancedCursor />
+                    <SmoothScroll>
+                        {children}
+                    </SmoothScroll>
+                </PageTransitionProvider>
             </body>
         </html>
     );

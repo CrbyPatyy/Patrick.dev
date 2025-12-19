@@ -1,12 +1,13 @@
 'use client';
 
 import { useState } from 'react';
-import Link from 'next/link';
+import { TransitionLink } from './PageTransition';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
 import { projects } from '@/data/projects';
 import MagneticText from './MagneticText';
 import MagneticWrapper from './MagneticWrapper';
 import ProjectHoverPreview from './ProjectHoverPreview';
+import StaggerText from './StaggerText';
 
 export default function Projects() {
     const [headerRef, headerVisible] = useScrollReveal<HTMLDivElement>();
@@ -20,7 +21,8 @@ export default function Projects() {
                     <div>
                         <p className="section-label mb-6">Featured Work</p>
                         <h2 className="heading-section">
-                            Selected<br />Projects
+                            {headerVisible ? <StaggerText text="Selected" delay={0} /> : "Selected"}<br />
+                            {headerVisible ? <StaggerText text="Projects" delay={200} /> : "Projects"}
                         </h2>
                     </div>
                     <a href="https://github.com/CrbyPatyy" target="_blank" rel="noopener noreferrer" className="text-sm text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors" aria-label="View all projects on GitHub">
@@ -45,10 +47,9 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
 
     return (
         <div ref={ref} className={`transition-all duration-700 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`} style={{ transitionDelay: `${index * 100}ms` }}>
-            <Link
+            <TransitionLink
                 href={`/projects/${project.slug}`}
                 className={`project-card group block rounded-2xl border border-[var(--border)] bg-[var(--bg-primary)] shadow-sm hover:shadow-2xl hover:translate-y-[-12px] transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${isComingSoon ? 'opacity-75 hover:opacity-100' : ''}`}
-                aria-label={`View details for ${project.title}`}
             >
                 <div className="grid lg:grid-cols-12 gap-4 sm:gap-6 lg:gap-8 p-6 sm:p-8 lg:p-10">
                     <div className="lg:col-span-1 flex items-start">
@@ -79,7 +80,7 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
                         </MagneticWrapper>
                     </div>
                 </div>
-            </Link>
+            </TransitionLink>
         </div>
     );
 }

@@ -3,7 +3,6 @@
 import { useEffect, useState, useRef } from 'react';
 import InteractiveMesh from './InteractiveMesh';
 import MagneticText from './MagneticText';
-import StaggerText from './StaggerText';
 
 export default function Hero() {
     const [loaded, setLoaded] = useState(false);
@@ -11,7 +10,17 @@ export default function Hero() {
     const sectionRef = useRef<HTMLElement>(null);
 
     useEffect(() => {
-        setLoaded(true);
+        // Listen for loader complete event
+        const handleLoaderComplete = () => {
+            setLoaded(true);
+        };
+
+        window.addEventListener('loaderComplete', handleLoaderComplete);
+
+        // Also check if loader already completed (e.g., session storage)
+        if (sessionStorage.getItem('loaded')) {
+            setLoaded(true);
+        }
 
         const handleScroll = () => {
             if (!sectionRef.current) return;
@@ -21,7 +30,10 @@ export default function Hero() {
         };
 
         window.addEventListener('scroll', handleScroll, { passive: true });
-        return () => window.removeEventListener('scroll', handleScroll);
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+            window.removeEventListener('loaderComplete', handleLoaderComplete);
+        };
     }, []);
 
 
@@ -30,83 +42,110 @@ export default function Hero() {
             {/* Dynamic Mesh Background */}
             <InteractiveMesh />
 
-            {/* Fixed content that animates on scroll */}
+            {/* Fixed content that animates on scroll with PARALLAX */}
             <div
-                className="sticky top-0 min-h-screen flex items-center justify-center"
+                className="sticky top-0 min-h-screen flex flex-col justify-between py-24 lg:py-32"
                 style={{
                     opacity: 1 - scrollProgress * 1.5,
-                    transform: `scale(${1 - scrollProgress * 0.1}) translateY(${scrollProgress * -50}px)`,
                 }}
             >
-                <div className="container text-center max-w-5xl">
-                    {/* Status Badge */}
-                    <div
-                        className={`inline-flex items-center gap-3 mb-12 px-5 py-2.5 rounded-full bg-white/60 backdrop-blur-sm border border-black/5 shadow-sm transition-all duration-1000 ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-                            }`}
-                        style={{ transitionDelay: '0.2s' }}
-                    >
-                        <span className="relative flex h-2.5 w-2.5">
-                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
-                        </span>
-                        <span className="text-xs uppercase tracking-[0.2em] text-neutral-600 font-medium">
-                            Open for opportunities
-                        </span>
+                {/* Top - LET'S BUILD + Get in touch (inline) - Slow parallax */}
+                <div
+                    className="container"
+                    style={{
+                        transform: `translateY(${scrollProgress * -20}px)`,
+                    }}
+                >
+                    <div className="flex items-center gap-4 lg:gap-8 flex-wrap">
+                        {/* Masked reveal container */}
+                        <div className="overflow-hidden">
+                            <h1
+                                className={`text-[clamp(3rem,15vw,14rem)] font-medium uppercase tracking-tighter leading-[0.85] transition-all duration-[1.2s] ease-[cubic-bezier(0.16,1,0.3,1)] ${loaded ? 'translate-y-0' : 'translate-y-[110%]'
+                                    }`}
+                                style={{
+                                    transitionDelay: '0s',
+                                    fontFamily: 'var(--font-bebas), sans-serif',
+                                }}
+                            >
+                                <span className="text-neutral-900">Let's Build</span>
+                            </h1>
+                        </div>
+
+                        {/* Get in touch */}
+                        <div className="overflow-hidden">
+                            <div
+                                className={`transition-all duration-[1.2s] ease-[cubic-bezier(0.16,1,0.3,1)] ${loaded ? 'translate-y-0' : 'translate-y-[110%]'
+                                    }`}
+                                style={{ transitionDelay: '0.15s' }}
+                            >
+                                <a href="#contact" className="group flex items-center gap-2 text-neutral-600 hover:text-neutral-900 transition-colors">
+                                    <MagneticText text="Get in touch" className="!px-0 !py-0 text-base lg:text-lg font-medium" />
+                                    <span className="text-neutral-400 group-hover:translate-x-1 transition-transform">→</span>
+                                </a>
+                            </div>
+                        </div>
                     </div>
+                </div>
 
-                    {/* Name - Signature stagger effect for wow factor */}
-                    <div className="overflow-hidden mb-6">
-                        <h1
-                            className={`text-[clamp(4rem,15vw,8rem)] md:text-[clamp(5rem,18vw,10rem)] font-medium uppercase tracking-tight leading-[0.9] transition-opacity duration-1000 ${loaded ? 'opacity-100' : 'opacity-0'
-                                }`}
-                            style={{
-                                transitionDelay: '0.3s',
-                                fontFamily: 'var(--font-bebas), sans-serif',
-                            }}
-                        >
-                            <span className="text-neutral-900">
-                                {loaded ? <StaggerText text="Patrick" delay={300} /> : "Patrick"}
-                            </span>
-                            <span className="text-neutral-300">.</span>
-                        </h1>
+                {/* Middle - SOMETHING (centered) - Medium parallax */}
+                <div
+                    className="container"
+                    style={{
+                        transform: `translateY(${scrollProgress * -35}px)`,
+                    }}
+                >
+                    <div className="flex justify-center">
+                        <div className="overflow-hidden">
+                            <h1
+                                className={`text-[clamp(3rem,15vw,14rem)] font-medium uppercase tracking-tighter leading-[0.85] transition-all duration-[1.2s] ease-[cubic-bezier(0.16,1,0.3,1)] text-center ${loaded ? 'translate-y-0' : 'translate-y-[110%]'
+                                    }`}
+                                style={{
+                                    transitionDelay: '0.1s',
+                                    fontFamily: 'var(--font-bebas), sans-serif',
+                                }}
+                            >
+                                <span className="text-neutral-900">Something</span>
+                            </h1>
+                        </div>
                     </div>
+                </div>
 
-                    {/* Role - Clear hierarchy */}
-                    <p
-                        className={`text-2xl md:text-3xl lg:text-4xl text-neutral-600 font-light tracking-tight mb-8 transition-all duration-1000 ${loaded ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
-                            }`}
-                        style={{ transitionDelay: '0.5s' }}
-                    >
-                        <span className="font-medium text-neutral-800">Creative</span> Developer
-                    </p>
+                {/* Bottom - View projects + AMAZING (right aligned) - Fast parallax */}
+                <div
+                    className="container"
+                    style={{
+                        transform: `translateY(${scrollProgress * -50}px)`,
+                    }}
+                >
+                    <div className="flex items-center justify-end gap-4 lg:gap-8 flex-wrap-reverse">
+                        {/* View projects */}
+                        <div className="overflow-hidden">
+                            <div
+                                className={`transition-all duration-[1.2s] ease-[cubic-bezier(0.16,1,0.3,1)] ${loaded ? 'translate-y-0' : 'translate-y-[110%]'
+                                    }`}
+                                style={{ transitionDelay: '0.25s' }}
+                            >
+                                <a href="#projects" className="group flex items-center gap-2 text-neutral-600 hover:text-neutral-900 transition-colors">
+                                    <span className="text-neutral-400 group-hover:-translate-x-1 transition-transform">←</span>
+                                    <MagneticText text="View projects" className="!px-0 !py-0 text-base lg:text-lg font-medium" />
+                                </a>
+                            </div>
+                        </div>
 
-                    {/* Brief tagline */}
-                    <p
-                        className={`text-neutral-500 max-w-2xl mx-auto mb-16 text-lg md:text-xl leading-relaxed transition-all duration-1000 ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-                            }`}
-                        style={{ transitionDelay: '0.6s' }}
-                    >
-                        Full-stack developer crafting digital experiences
-                        <br className="hidden sm:block" />
-                        that blend <span className="text-neutral-700 font-medium">form</span> with <span className="text-neutral-700 font-medium">function</span>.
-                    </p>
-
-                    {/* CTA Buttons - Improved visibility */}
-                    <div
-                        className={`flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 transition-all duration-1000 ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-                            }`}
-                        style={{ transitionDelay: '0.7s' }}
-                    >
-                        <a
-                            href="#projects"
-                            className="btn btn-primary !p-0 shadow-lg shadow-black/15 hover:shadow-2xl hover:shadow-black/20 transition-all duration-500"
-                        >
-                            <MagneticText text="View projects" className="!px-10 !py-5 text-base" />
-                        </a>
-                        <a href="#contact" className="group flex items-center gap-2 text-neutral-600 hover:text-neutral-900 transition-colors">
-                            <span className="text-base font-medium">Get in touch</span>
-                            <span className="text-neutral-400 group-hover:translate-x-1 transition-transform">→</span>
-                        </a>
+                        {/* AMAZING */}
+                        <div className="overflow-hidden">
+                            <h1
+                                className={`text-[clamp(3rem,15vw,14rem)] font-medium uppercase tracking-tighter leading-[0.85] transition-all duration-[1.2s] ease-[cubic-bezier(0.16,1,0.3,1)] text-right ${loaded ? 'translate-y-0' : 'translate-y-[110%]'
+                                    }`}
+                                style={{
+                                    transitionDelay: '0.2s',
+                                    fontFamily: 'var(--font-bebas), sans-serif',
+                                }}
+                            >
+                                <span className="text-neutral-900">Amazing</span>
+                                <span className="text-neutral-300">.</span>
+                            </h1>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -114,7 +153,7 @@ export default function Hero() {
             {/* Scroll Indicator */}
             <div
                 className="absolute bottom-10 left-1/2 -translate-x-1/2 transition-opacity duration-500"
-                style={{ opacity: loaded && scrollProgress < 0.3 ? 1 : 0 }}
+                style={{ opacity: loaded && scrollProgress < 0.5 ? 1 : 0 }}
             >
                 <div className="flex flex-col items-center gap-3 text-neutral-400">
                     <span className="text-[10px] uppercase tracking-[0.3em] font-medium">Scroll</span>
@@ -126,4 +165,3 @@ export default function Hero() {
         </section>
     );
 }
-
