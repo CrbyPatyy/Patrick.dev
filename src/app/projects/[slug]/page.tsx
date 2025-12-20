@@ -119,6 +119,24 @@ export default function ProjectPage() {
                             </p>
                         </div>
 
+                        {/* Image Gallery */}
+                        {project.images && project.images.length > 0 && (
+                            <div className="space-y-8">
+                                <h3 className="text-xs font-mono uppercase tracking-widest text-[var(--text-muted)]">Project Screenshots</h3>
+                                <div className="grid gap-8">
+                                    {project.images.map((image, idx) => (
+                                        <div key={idx} className="relative aspect-video overflow-hidden rounded-lg border border-[var(--border)] bg-[var(--bg-secondary)]">
+                                            <img
+                                                src={image}
+                                                alt={`${project.title} screenshot ${idx + 1}`}
+                                                className="w-full h-full object-cover object-top hover:scale-105 transition-transform duration-700"
+                                            />
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+
                         {/* Features Grid */}
                         {project.features.length > 0 && (
                             <div className="border-t border-[var(--border)] pt-12">

@@ -36,10 +36,13 @@ export const projects: Project[] = [
         ],
         challenges: 'Building a seamless integration between the customer-facing booking system and the back-office PMS while ensuring real-time data synchronization across all touchpoints.',
         solution: 'Implemented a real-time subscription system using Supabase for instant updates, combined with optimistic UI updates for a snappy user experience. The PMS dashboard uses efficient data fetching patterns to minimize load times.',
+        liveUrl: 'https://booking-main-sys-wkjf.vercel.app/',
+        githubUrl: 'https://github.com/CrbyPatyy',
         status: 'Completed',
         images: [
-            '/window.svg', // Using existing SVGs as placeholders for now to avoid broken images
-            '/globe.svg'
+            '/booking-hero.png',        // Hero landing page
+            '/booking-rooms.png',       // Rooms page
+            '/dashboard-home.png'       // Dashboard
         ]
     },
     {

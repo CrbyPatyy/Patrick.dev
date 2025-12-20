@@ -47,7 +47,7 @@ export default function About() {
                                         <p className="text-sm text-[var(--text-muted)] font-medium mb-4">{group.category}</p>
                                         <div className="flex flex-wrap gap-3">
                                             {group.items.map((item) => (
-                                                <span key={item} className="px-4 py-2 text-sm bg-white border border-[var(--border)] rounded-full hover:border-[var(--border-hover)] hover:bg-[var(--bg-tertiary)] transition-all duration-300 cursor-default">{item}</span>
+                                                <span key={item} className="px-4 py-2 text-sm bg-[var(--bg-tertiary)] border border-[var(--border)] rounded-full hover:border-[var(--border-hover)] hover:bg-[var(--bg-hover)] transition-all duration-300 cursor-default">{item}</span>
                                             ))}
                                         </div>
                                     </div>

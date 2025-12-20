@@ -90,7 +90,7 @@ function ServiceItem({ service, index, isHovered, onHover, onLeave }: ServiceIte
             <div className="flex items-center gap-4 md:gap-8">
                 {/* Number badge */}
                 <div className="flex-shrink-0">
-                    <span className={`service-number inline-flex items-center justify-center w-10 h-10 text-sm font-semibold rounded-full border transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${isHovered ? 'bg-[var(--accent)] text-white border-[var(--accent)] scale-110' : 'bg-[var(--bg-primary)] text-[var(--text-muted)] border-[var(--border)]'}`}>
+                    <span className={`service-number inline-flex items-center justify-center w-10 h-10 text-sm font-semibold rounded-full border transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${isHovered ? 'bg-[var(--accent)] text-[var(--bg-primary)] border-[var(--accent)] scale-110' : 'bg-[var(--bg-primary)] text-[var(--text-muted)] border-[var(--border)]'}`}>
                         {String(service.id).padStart(2, '0')}
                     </span>
                 </div>
@@ -103,7 +103,7 @@ function ServiceItem({ service, index, isHovered, onHover, onLeave }: ServiceIte
                 </span>
 
                 {/* Arrow indicator - points down when hovered */}
-                <div className={`flex items-center justify-center w-10 h-10 rounded-full border transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${isHovered ? 'border-[var(--accent)] bg-[var(--accent)] text-white' : 'border-[var(--border)] text-[var(--text-muted)]'}`}>
+                <div className={`flex items-center justify-center w-10 h-10 rounded-full border transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${isHovered ? 'border-[var(--accent)] bg-[var(--accent)] text-[var(--bg-primary)]' : 'border-[var(--border)] text-[var(--text-muted)]'}`}>
                     <svg
                         className={`w-5 h-5 transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${isHovered ? 'rotate-0' : 'rotate-180'}`}
                         fill="none"

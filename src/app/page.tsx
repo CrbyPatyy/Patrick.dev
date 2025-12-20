@@ -8,7 +8,7 @@ import Services from '@/components/Services';
 import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
 import ScrollProgress from '@/components/ScrollProgress';
-import Marquee from '@/components/Marquee';
+
 import ScrollSection from '@/components/ScrollSection';
 
 export default function Home() {
@@ -54,6 +54,8 @@ export default function Home() {
                 <ScrollSection animation="scale">
                     <About />
                 </ScrollSection>
+
+
 
                 <ScrollSection animation="slide-up">
                     <Services />

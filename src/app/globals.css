@@ -2,21 +2,21 @@
 
 @layer base {
   :root {
-    /* Premium Neutral Palette - Sophisticated HSL colors */
-    --bg-primary: hsl(0, 0%, 98%);
-    --bg-secondary: hsl(0, 0%, 96%);
-    --bg-tertiary: hsl(0, 0%, 94%);
-    --bg-hover: hsl(0, 0%, 92%);
+    /* Dark Mode - Clean & Bold */
+    --bg-primary: hsl(0, 0%, 4%);
+    --bg-secondary: hsl(0, 0%, 8%);
+    --bg-tertiary: hsl(0, 0%, 12%);
+    --bg-hover: hsl(0, 0%, 16%);
 
-    --accent: hsl(0, 0%, 4%);
-    --accent-soft: hsl(0, 0%, 15%);
+    --accent: hsl(0, 0%, 98%);
+    --accent-soft: hsl(0, 0%, 85%);
 
-    --text-primary: hsl(0, 0%, 4%);
-    --text-secondary: hsl(0, 0%, 32%);
-    --text-muted: hsl(0, 0%, 64%);
+    --text-primary: hsl(0, 0%, 98%);
+    --text-secondary: hsl(0, 0%, 75%);
+    --text-muted: hsl(0, 0%, 55%);
 
-    --border: hsla(0, 0%, 0%, 0.08);
-    --border-hover: hsla(0, 0%, 0%, 0.15);
+    --border: hsla(0, 0%, 100%, 0.1);
+    --border-hover: hsla(0, 0%, 100%, 0.2);
 
     /* Enhanced Easing Functions for Butter Smooth Transitions */
     --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
@@ -190,7 +190,7 @@
 
   .btn-primary {
     background: var(--accent);
-    color: white;
+    color: var(--bg-primary);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   }
 
@@ -211,7 +211,7 @@
 
   .btn-secondary:hover {
     background: var(--accent);
-    color: white;
+    color: var(--bg-primary);
     border-color: var(--accent);
     transform: translateY(-3px);
     box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
@@ -714,9 +714,9 @@
 
   /* Glassmorphism */
   .glass {
-    background: hsla(0, 0%, 100%, 0.7);
+    background: hsla(0, 0%, 4%, 0.85);
     backdrop-filter: blur(12px) saturate(180%);
-    border: 1px solid hsla(0, 0%, 0%, 0.05);
+    border: 1px solid hsla(0, 0%, 100%, 0.1);
   }
 
   .glass-dark {

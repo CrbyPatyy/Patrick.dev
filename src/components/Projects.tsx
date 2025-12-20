@@ -72,7 +72,7 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
                     <div className="lg:col-span-2 flex items-center justify-between lg:justify-end gap-4">
                         <span className="text-sm text-[var(--text-muted)]">{project.year}</span>
                         <MagneticWrapper strength={0.4}>
-                            <div className={`w-12 h-12 rounded-full border flex items-center justify-center transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${isComingSoon ? 'border-amber-300 group-hover:bg-amber-500 group-hover:border-amber-500 group-hover:text-white' : 'border-[var(--border)] group-hover:bg-[var(--accent)] group-hover:border-[var(--accent)] group-hover:text-white group-hover:scale-110 shadow-sm'}`}>
+                            <div className={`w-12 h-12 rounded-full border flex items-center justify-center transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${isComingSoon ? 'border-amber-300 group-hover:bg-amber-500 group-hover:border-amber-500 group-hover:text-white' : 'border-[var(--border)] group-hover:bg-[var(--accent)] group-hover:border-[var(--accent)] group-hover:text-[var(--bg-primary)] group-hover:scale-110 shadow-sm'}`}>
                                 <svg className="w-5 h-5 -rotate-45 group-hover:rotate-0 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                                 </svg>

@@ -67,7 +67,7 @@ export default function Hero() {
                                     fontFamily: 'var(--font-bebas), sans-serif',
                                 }}
                             >
-                                <span className="text-neutral-900">Let's Build</span>
+                                <span className="text-[var(--text-primary)]">Let's Build</span>
                             </h1>
                         </div>
 
@@ -78,9 +78,9 @@ export default function Hero() {
                                     }`}
                                 style={{ transitionDelay: '0.15s' }}
                             >
-                                <a href="#contact" className="group flex items-center gap-2 text-neutral-600 hover:text-neutral-900 transition-colors">
+                                <a href="#contact" className="group flex items-center gap-2 text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors">
                                     <MagneticText text="Get in touch" className="!px-0 !py-0 text-base lg:text-lg font-medium" />
-                                    <span className="text-neutral-400 group-hover:translate-x-1 transition-transform">→</span>
+                                    <span className="text-[var(--text-muted)] group-hover:translate-x-1 transition-transform">→</span>
                                 </a>
                             </div>
                         </div>
@@ -104,7 +104,7 @@ export default function Hero() {
                                     fontFamily: 'var(--font-bebas), sans-serif',
                                 }}
                             >
-                                <span className="text-neutral-900">Something</span>
+                                <span className="text-[var(--text-primary)]">Something</span>
                             </h1>
                         </div>
                     </div>
@@ -125,8 +125,8 @@ export default function Hero() {
                                     }`}
                                 style={{ transitionDelay: '0.25s' }}
                             >
-                                <a href="#projects" className="group flex items-center gap-2 text-neutral-600 hover:text-neutral-900 transition-colors">
-                                    <span className="text-neutral-400 group-hover:-translate-x-1 transition-transform">←</span>
+                                <a href="#projects" className="group flex items-center gap-2 text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors">
+                                    <span className="text-[var(--text-muted)] group-hover:-translate-x-1 transition-transform">←</span>
                                     <MagneticText text="View projects" className="!px-0 !py-0 text-base lg:text-lg font-medium" />
                                 </a>
                             </div>
@@ -142,8 +142,8 @@ export default function Hero() {
                                     fontFamily: 'var(--font-bebas), sans-serif',
                                 }}
                             >
-                                <span className="text-neutral-900">Amazing</span>
-                                <span className="text-neutral-300">.</span>
+                                <span className="text-[var(--text-primary)]">Amazing</span>
+                                <span className="text-[var(--text-muted)]">.</span>
                             </h1>
                         </div>
                     </div>
@@ -155,10 +155,10 @@ export default function Hero() {
                 className="absolute bottom-10 left-1/2 -translate-x-1/2 transition-opacity duration-500"
                 style={{ opacity: loaded && scrollProgress < 0.5 ? 1 : 0 }}
             >
-                <div className="flex flex-col items-center gap-3 text-neutral-400">
+                <div className="flex flex-col items-center gap-3 text-[var(--text-secondary)]">
                     <span className="text-[10px] uppercase tracking-[0.3em] font-medium">Scroll</span>
-                    <div className="w-5 h-8 rounded-full border border-neutral-300 flex items-start justify-center p-1.5">
-                        <div className="w-1 h-2 bg-neutral-400 rounded-full animate-bounce" />
+                    <div className="w-5 h-8 rounded-full border border-[var(--border)] flex items-start justify-center p-1.5">
+                        <div className="w-1 h-2 bg-[var(--text-muted)] rounded-full animate-bounce" />
                     </div>
                 </div>
             </div>

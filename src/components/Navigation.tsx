@@ -129,7 +129,7 @@ export default function Navigation() {
                                 key={link.name}
                                 href={link.href}
                                 onClick={(e) => handleNavClick(e, link.href)}
-                                className={`group relative py-2 ${activeSection === link.href.substring(1) ? 'text-[var(--text-primary)]' : 'text-[var(--text-secondary)]'}`}
+                                className={`group relative py-2 transition-colors duration-300 hover:text-[var(--text-primary)] ${activeSection === link.href.substring(1) ? 'text-[var(--text-primary)]' : 'text-[var(--accent-soft)]'}`}
                                 aria-current={activeSection === link.href.substring(1) ? 'page' : undefined}
                             >
                                 <MagneticText
@@ -151,7 +151,7 @@ export default function Navigation() {
                     </button>
                 </div>
             </nav>
-            <div className={`fixed inset-0 z-40 bg-white transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] md:hidden ${mobileOpen ? 'opacity-100 visible' : 'opacity-0 invisible'}`} aria-hidden={!mobileOpen}>
+            <div className={`fixed inset-0 z-40 bg-[var(--bg-primary)] transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] md:hidden ${mobileOpen ? 'opacity-100 visible' : 'opacity-0 invisible'}`} aria-hidden={!mobileOpen}>
                 <div className="container h-full flex flex-col justify-center">
                     <nav className="space-y-2" aria-label="Mobile navigation">
                         {navLinks.map((link, index) => (

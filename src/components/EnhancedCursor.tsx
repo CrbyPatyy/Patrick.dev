@@ -199,7 +199,7 @@ export default function EnhancedCursor() {
             >
                 <div
                     ref={ringRef}
-                    className="cursor-ring w-10 h-10 -ml-5 -mt-5 rounded-full border border-neutral-900/30 flex items-center justify-center transition-colors duration-200"
+                    className="cursor-ring w-10 h-10 -ml-5 -mt-5 rounded-full border border-white/40 flex items-center justify-center transition-colors duration-200"
                 >
                     <span
                         ref={textRef}
@@ -214,7 +214,7 @@ export default function EnhancedCursor() {
                 className="fixed top-0 left-0 z-[9999] pointer-events-none hidden md:block"
                 style={{ opacity: 0 }}
             >
-                <div className="cursor-dot w-1.5 h-1.5 -ml-[3px] -mt-[3px] rounded-full bg-neutral-900 transition-colors duration-200" />
+                <div className="cursor-dot w-1.5 h-1.5 -ml-[3px] -mt-[3px] rounded-full bg-white transition-colors duration-200" />
             </div>
 
             <style jsx global>{`

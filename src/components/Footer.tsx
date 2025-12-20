@@ -32,12 +32,12 @@ export default function Footer() {
     };
 
     return (
-        <footer className="py-24 lg:py-36 border-t border-white/10 bg-neutral-900">
+        <footer className="py-24 lg:py-36 border-t border-[var(--border)] bg-[var(--bg-secondary)]">
             <div className="container">
                 {/* Large logo */}
                 <div ref={logoRef} id="footer-logo" className={`text-center mb-16 transition-all duration-1000 ${visible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
                     <span
-                        className="text-[clamp(4rem,15vw,12rem)] uppercase tracking-[-0.02em] leading-[0.85] text-white/80 select-none"
+                        className="text-[clamp(4rem,15vw,12rem)] uppercase tracking-[-0.02em] leading-[0.85] text-[var(--text-primary)] opacity-80 select-none"
                         style={{ fontFamily: 'var(--font-bebas), sans-serif' }}
                     >
                         <span id="footer-p" className="inline-block">P</span>ATRICK
@@ -48,7 +48,7 @@ export default function Footer() {
                 <div className="flex justify-center mb-12">
                     <button
                         onClick={scrollToTop}
-                        className="btn btn-secondary !p-0 group !bg-white !border-white !text-black hover:!bg-neutral-100"
+                        className="btn btn-secondary !p-0 group"
                         data-light-bg="true"
                     >
                         <div className="flex items-center gap-3 px-6 py-3">
@@ -61,7 +61,7 @@ export default function Footer() {
                 </div>
 
                 {/* Footer content */}
-                <div className="grid grid-cols-1 md:grid-cols-3 items-center gap-8 text-sm text-neutral-400">
+                <div className="grid grid-cols-1 md:grid-cols-3 items-center gap-8 text-sm text-[var(--text-secondary)]">
                     <p className="text-center md:text-left">© {new Date().getFullYear()} Patrick. All rights reserved.</p>
 
                     {/* Social links with icons */}
@@ -72,7 +72,7 @@ export default function Footer() {
                                 href={social.url}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="btn btn-secondary !p-0 group !bg-white !border-white !text-black hover:!bg-neutral-100"
+                                className="btn btn-secondary !p-0 group"
                                 aria-label={`Visit ${social.name} profile`}
                                 data-light-bg="true"
                             >

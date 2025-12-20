@@ -8,7 +8,7 @@ interface ProjectHoverPreviewProps {
     projects: Array<{
         id: number;
         title: string;
-        image?: string;
+        images?: string[];
     }>;
 }
 
@@ -77,23 +77,34 @@ export default function ProjectHoverPreview({ activeId, projects }: ProjectHover
                     className="w-72 h-44 rounded-xl overflow-hidden shadow-2xl"
                     style={{ opacity: 0, transform: 'scale(0.8)' }}
                 >
-                    {/* Preview container with gradient background */}
+                    {/* Preview container with image or gradient background */}
                     <div className="relative w-full h-full bg-neutral-900">
-                        {/* Animated gradient background */}
-                        <div className="absolute inset-0 bg-gradient-to-br from-neutral-800 via-neutral-900 to-black" />
+                        {/* Project Image */}
+                        {activeProject?.images && activeProject.images.length > 0 ? (
+                            <img
+                                src={activeProject.images[0]}
+                                alt={activeProject.title}
+                                className="w-full h-full object-cover"
+                            />
+                        ) : (
+                            <>
+                                {/* Fallback: Animated gradient background */}
+                                <div className="absolute inset-0 bg-gradient-to-br from-neutral-800 via-neutral-900 to-black" />
 
-                        {/* Project title overlay */}
-                        <div className="absolute inset-0 flex items-center justify-center">
-                            <span
-                                className="text-5xl font-medium text-white/10 uppercase tracking-widest"
-                                style={{ fontFamily: 'var(--font-bebas), sans-serif' }}
-                            >
-                                {activeProject?.title?.split(' ')[0]}
-                            </span>
-                        </div>
+                                {/* Project title overlay */}
+                                <div className="absolute inset-0 flex items-center justify-center">
+                                    <span
+                                        className="text-5xl font-medium text-white/10 uppercase tracking-widest"
+                                        style={{ fontFamily: 'var(--font-bebas), sans-serif' }}
+                                    >
+                                        {activeProject?.title?.split(' ')[0]}
+                                    </span>
+                                </div>
 
-                        {/* Shine effect */}
-                        <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-transparent" />
+                                {/* Shine effect */}
+                                <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-transparent" />
+                            </>
+                        )}
 
                         {/* Border glow */}
                         <div className="absolute inset-0 rounded-xl ring-1 ring-white/10" />
