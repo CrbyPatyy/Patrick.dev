@@ -4,6 +4,7 @@ import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
 import LoadingScreen from "@/components/LoadingScreen";
 import EnhancedCursor from "@/components/EnhancedCursor";
+import AnimatedGradient from "@/components/AnimatedGradient";
 import { PageTransitionProvider } from "@/components/PageTransition";
 
 const inter = Inter({
@@ -65,6 +66,7 @@ export default function RootLayout({
                 {/* Global Backgrounds */}
                 <div className="fixed inset-0 z-[-1] bg-grid pointer-events-none" aria-hidden="true" />
                 <div className="noise" />
+                <AnimatedGradient />
 
                 <PageTransitionProvider>
                     <LoadingScreen />
