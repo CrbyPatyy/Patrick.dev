@@ -10,11 +10,11 @@ export interface ExperienceItem {
 export const experience: ExperienceItem[] = [
     {
         id: 1,
-        role: "IT Director",
-        company: "SaniSolutions",
-        period: "Present",
-        description: "Manage IT operations, resolve technical issues, and oversee the development of client websites and digital solutions to ensure reliable systems and support business objectives.",
-        technologies: ["IT Strategy", "Product Leadership", "Full Stack Development", "System Architecture"]
+        role: "Intern / Web App Developer (Internal Tool Project)",
+        company: "Hytec Power Inc.",
+        period: "Internship",
+        description: "Co-developed a local web app that serves as an internal catalog of industrial machines for staff and company tours. Implemented search/filter features, machine profile pages, and content management workflows while assisting in testing and UI polishing for smoother navigation.",
+        technologies: ["Web Development", "Internal Tools", "UI/UX", "QA Testing"]
     },
     {
         id: 2,

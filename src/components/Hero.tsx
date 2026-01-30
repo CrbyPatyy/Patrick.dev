@@ -1,12 +1,31 @@
 'use client';
 
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, useCallback } from 'react';
+import { useParallax } from '@/hooks/useParallax';
 import MagneticText from './MagneticText';
 
 export default function Hero() {
     const [loaded, setLoaded] = useState(false);
-    const [scrollProgress, setScrollProgress] = useState(0);
+    const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+    const [isHovering, setIsHovering] = useState(false);
     const sectionRef = useRef<HTMLElement>(null);
+
+    // Parallax refs
+    const { ref: topRef, style: topStyle } = useParallax<HTMLDivElement>({ speed: 0.05, direction: 'up' });
+    const { ref: middleRef, style: middleStyle } = useParallax<HTMLDivElement>({ speed: 0.1, direction: 'up' });
+    const { ref: bottomRef, style: bottomStyle } = useParallax<HTMLDivElement>({ speed: 0.15, direction: 'up' });
+    const { ref: verticalNameRef, style: verticalNameStyle } = useParallax<HTMLDivElement>({ speed: 0.03, direction: 'down' });
+
+    // Mouse tracking for spotlight effect
+    const handleMouseMove = useCallback((e: MouseEvent) => {
+        if (sectionRef.current) {
+            const rect = sectionRef.current.getBoundingClientRect();
+            setMousePosition({
+                x: e.clientX - rect.left,
+                y: e.clientY - rect.top
+            });
+        }
+    }, []);
 
     useEffect(() => {
         // Listen for loader complete event
@@ -21,42 +40,66 @@ export default function Hero() {
             setLoaded(true);
         }
 
-        const handleScroll = () => {
-            if (!sectionRef.current) return;
-            const rect = sectionRef.current.getBoundingClientRect();
-            const progress = Math.max(0, Math.min(1, -rect.top / (rect.height * 0.5)));
-            setScrollProgress(progress);
-        };
+        // Mouse move listener
+        const section = sectionRef.current;
+        if (section) {
+            section.addEventListener('mousemove', handleMouseMove);
+            section.addEventListener('mouseenter', () => setIsHovering(true));
+            section.addEventListener('mouseleave', () => setIsHovering(false));
+        }
 
-        window.addEventListener('scroll', handleScroll, { passive: true });
         return () => {
-            window.removeEventListener('scroll', handleScroll);
             window.removeEventListener('loaderComplete', handleLoaderComplete);
+            if (section) {
+                section.removeEventListener('mousemove', handleMouseMove);
+                section.removeEventListener('mouseenter', () => setIsHovering(true));
+                section.removeEventListener('mouseleave', () => setIsHovering(false));
+            }
         };
-    }, []);
+    }, [handleMouseMove]);
 
 
     return (
-        <section ref={sectionRef} className="min-h-[150vh] relative">
-            {/* Fixed content that animates on scroll with PARALLAX */}
+        <section ref={sectionRef} className="min-h-[150vh] relative overflow-hidden">
+
+            {/* Mouse-Following Spotlight */}
             <div
-                className="sticky top-0 min-h-screen flex flex-col justify-between py-24 lg:py-32"
+                className="absolute pointer-events-none transition-opacity duration-500 hidden lg:block"
                 style={{
-                    opacity: 1 - scrollProgress * 1.5,
+                    background: `radial-gradient(600px circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(255,255,255,0.03), transparent 40%)`,
+                    inset: 0,
+                    opacity: isHovering ? 1 : 0,
                 }}
-            >
+            />
+
+            {/* Fixed content that animates on scroll with PARALLAX */}
+            <div className="sticky top-0 min-h-screen flex flex-col justify-between py-24 lg:py-32 overflow-hidden">
+
+                {/* Vertical Name - Right Side Middle */}
+                <div
+                    ref={verticalNameRef}
+                    className="absolute right-8 top-[40%] -translate-y-1/2 hidden lg:block z-10 mix-blend-difference"
+                    style={verticalNameStyle}
+                >
+                    <h2
+                        className={`text-sm tracking-[0.3em] font-medium text-[var(--text-muted)] transition-all duration-1000 ${loaded ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4'}`}
+                        style={{ writingMode: 'vertical-rl', textOrientation: 'mixed' }}
+                    >
+                        PATRICK VILLANUEVA
+                    </h2>
+                </div>
+
                 {/* Top - LET'S BUILD + Get in touch (inline) - Slow parallax */}
                 <div
-                    className="container"
-                    style={{
-                        transform: `translateY(${scrollProgress * -20}px)`,
-                    }}
+                    ref={topRef}
+                    className="container relative z-10"
+                    style={topStyle}
                 >
                     <div className="flex items-center gap-4 lg:gap-8 flex-wrap">
                         {/* Masked reveal container */}
                         <div className="overflow-hidden">
                             <h1
-                                className={`text-[clamp(3rem,15vw,14rem)] font-medium uppercase tracking-tighter leading-[0.85] transition-all duration-[1.2s] ease-[cubic-bezier(0.16,1,0.3,1)] ${loaded ? 'translate-y-0' : 'translate-y-[110%]'
+                                className={`hero-text-shimmer text-[clamp(3rem,15vw,14rem)] font-medium uppercase tracking-tighter leading-[0.85] transition-all duration-[1.2s] ease-[cubic-bezier(0.16,1,0.3,1)] ${loaded ? 'translate-y-0' : 'translate-y-[110%]'
                                     }`}
                                 style={{
                                     transitionDelay: '0s',
@@ -85,15 +128,14 @@ export default function Hero() {
 
                 {/* Middle - SOMETHING (centered) - Medium parallax */}
                 <div
-                    className="container"
-                    style={{
-                        transform: `translateY(${scrollProgress * -35}px)`,
-                    }}
+                    ref={middleRef}
+                    className="container relative z-10"
+                    style={middleStyle}
                 >
                     <div className="flex justify-center">
                         <div className="overflow-hidden">
                             <h1
-                                className={`text-[clamp(3rem,15vw,14rem)] font-medium uppercase tracking-tighter leading-[0.85] transition-all duration-[1.2s] ease-[cubic-bezier(0.16,1,0.3,1)] text-center ${loaded ? 'translate-y-0' : 'translate-y-[110%]'
+                                className={`hero-text-shimmer text-[clamp(3rem,15vw,14rem)] font-medium uppercase tracking-tighter leading-[0.85] transition-all duration-[1.2s] ease-[cubic-bezier(0.16,1,0.3,1)] text-center ${loaded ? 'translate-y-0' : 'translate-y-[110%]'
                                     }`}
                                 style={{
                                     transitionDelay: '0.1s',
@@ -108,10 +150,9 @@ export default function Hero() {
 
                 {/* Bottom - View projects + AMAZING (right aligned) - Fast parallax */}
                 <div
-                    className="container"
-                    style={{
-                        transform: `translateY(${scrollProgress * -50}px)`,
-                    }}
+                    ref={bottomRef}
+                    className="container relative z-10"
+                    style={bottomStyle}
                 >
                     <div className="flex items-center justify-end gap-4 lg:gap-8 flex-wrap-reverse">
                         {/* View projects */}
@@ -131,7 +172,7 @@ export default function Hero() {
                         {/* AMAZING */}
                         <div className="overflow-hidden">
                             <h1
-                                className={`text-[clamp(3rem,15vw,14rem)] font-medium uppercase tracking-tighter leading-[0.85] transition-all duration-[1.2s] ease-[cubic-bezier(0.16,1,0.3,1)] text-right ${loaded ? 'translate-y-0' : 'translate-y-[110%]'
+                                className={`hero-text-shimmer text-[clamp(3rem,15vw,14rem)] font-medium uppercase tracking-tighter leading-[0.85] transition-all duration-[1.2s] ease-[cubic-bezier(0.16,1,0.3,1)] text-right ${loaded ? 'translate-y-0' : 'translate-y-[110%]'
                                     }`}
                                 style={{
                                     transitionDelay: '0.2s',
@@ -139,22 +180,22 @@ export default function Hero() {
                                 }}
                             >
                                 <span className="text-[var(--text-primary)]">Amazing</span>
-                                <span className="text-[var(--text-muted)]">.</span>
+                                <span className="text-[var(--text-muted)] animate-pulse-dot">.</span>
                             </h1>
                         </div>
                     </div>
                 </div>
             </div>
 
-            {/* Scroll Indicator */}
+            {/* Enhanced Scroll Indicator */}
             <div
-                className="absolute bottom-10 left-1/2 -translate-x-1/2 transition-opacity duration-500"
-                style={{ opacity: loaded && scrollProgress < 0.5 ? 1 : 0 }}
+                className={`absolute bottom-10 left-1/2 -translate-x-1/2 transition-all duration-700 z-10 ${loaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
+                style={{ transitionDelay: '0.6s' }}
             >
                 <div className="flex flex-col items-center gap-3 text-[var(--text-secondary)]">
-                    <span className="text-[10px] uppercase tracking-[0.3em] font-medium">Scroll</span>
-                    <div className="w-5 h-8 rounded-full border border-[var(--border)] flex items-start justify-center p-1.5">
-                        <div className="w-1 h-2 bg-[var(--text-muted)] rounded-full animate-bounce" />
+                    <span className="text-[10px] uppercase tracking-[0.3em] font-medium animate-fade-pulse">Scroll</span>
+                    <div className="relative w-6 h-10 rounded-full border border-[var(--border)] flex items-start justify-center p-2">
+                        <div className="w-1 h-2 bg-[var(--accent)] rounded-full animate-scroll-indicator" />
                     </div>
                 </div>
             </div>

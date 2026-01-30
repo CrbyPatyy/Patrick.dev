@@ -20,14 +20,14 @@ export default function About() {
                     <div className="lg:col-span-7">
                         <p className="section-label mb-6">About Me</p>
                         <h2 className="heading-subsection mb-8">
-                            {visible ? <StaggerText text="I build digital products that are " delay={0} /> : "I build digital products that are "}
+                            {visible ? <StaggerText text="Self-taught developer with a " delay={0} /> : "Self-taught developer with a "}
                             <span className="text-[var(--text-muted)]">
-                                {visible ? <StaggerText text="intuitive, performant," delay={400} /> : "intuitive, performant,"}
+                                {visible ? <StaggerText text="passion for building" delay={400} /> : "passion for building"}
                             </span>{' '}
-                            {visible ? <StaggerText text="and designed to scale." delay={600} /> : "and designed to scale."}
+                            {visible ? <StaggerText text="meaningful experiences." delay={600} /> : "meaningful experiences."}
                         </h2>
                         <p className="text-base sm:text-lg text-[var(--text-secondary)] leading-relaxed max-w-2xl mb-12">
-                            With experience across the full development stack, I focus on creating seamless user experiences backed by clean, maintainable code. Currently based in Manila, available worldwide.
+                            It started with a high school professor who showed me how to build a website. That moment changed everything. I've been obsessed with code ever since — even while studying Computer Engineering, I kept learning on my own because I wanted to go deeper. What drives me? Making people stop and think, <em className="text-[var(--text-primary)] not-italic">"Wow, technology can do that?"</em> Outside of coding, I'm usually chasing mountains or diving into the ocean. Fresh air leads to fresh ideas.
                         </p>
                         <div className="flex flex-wrap gap-4">
                             <a href="#contact" className="btn btn-primary !p-0">

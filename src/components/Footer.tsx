@@ -32,64 +32,71 @@ export default function Footer() {
     };
 
     return (
-        <footer className="py-24 lg:py-36 border-t border-[var(--border)] bg-[var(--bg-secondary)]">
-            <div className="container">
-                {/* Large logo */}
-                <div ref={logoRef} id="footer-logo" className={`text-center mb-16 transition-all duration-1000 ${visible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
-                    <span
-                        className="text-[clamp(4rem,15vw,12rem)] uppercase tracking-[-0.02em] leading-[0.85] text-[var(--text-primary)] opacity-80 select-none"
-                        style={{ fontFamily: 'var(--font-bebas), sans-serif' }}
-                    >
-                        <span id="footer-p" className="inline-block">P</span>ATRICK
-                    </span>
-                </div>
-
-                {/* Back to top button */}
-                <div className="flex justify-center mb-12">
-                    <button
-                        onClick={scrollToTop}
-                        className="btn btn-secondary !p-0 group"
-                        data-light-bg="true"
-                    >
-                        <div className="flex items-center gap-3 px-6 py-3">
-                            <svg className="w-4 h-4 rotate-180 group-hover:-translate-y-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-                            </svg>
-                            <MagneticText text="Back to Top" />
-                        </div>
-                    </button>
-                </div>
-
-                {/* Footer content */}
-                <div className="grid grid-cols-1 md:grid-cols-3 items-center gap-8 text-sm text-[var(--text-secondary)]">
-                    <p className="text-center md:text-left">© {new Date().getFullYear()} Patrick. All rights reserved.</p>
-
-                    {/* Social links with icons */}
-                    <div className="flex items-center justify-center gap-4">
-                        {socials.map((social) => (
-                            <a
-                                key={social.name}
-                                href={social.url}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="btn btn-secondary !p-0 group"
-                                aria-label={`Visit ${social.name} profile`}
-                                data-light-bg="true"
+        <div className="relative h-[650px] lg:h-[80vh]" style={{ clipPath: "inset(0 0 0 0)" }}>
+            <div className="fixed bottom-0 left-0 w-full h-[650px] lg:h-[80vh] -z-10">
+                <footer className="h-full py-24 lg:py-36 border-t border-[var(--border)] bg-[var(--bg-secondary)] flex flex-col justify-between">
+                    <div className="container h-full flex flex-col justify-between">
+                        {/* Large logo */}
+                        <div ref={logoRef} id="footer-logo" className={`text-center transition-all duration-1000 flex-1 flex items-center justify-center ${visible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
+                            <span
+                                className="block text-[clamp(4rem,18vw,16rem)] uppercase tracking-[-0.02em] leading-[0.8] text-[var(--text-primary)] opacity-80 select-none"
+                                style={{
+                                    fontFamily: 'var(--font-bebas), sans-serif',
+                                    textShadow: '0 10px 30px rgba(0,0,0,0.2)'
+                                }}
                             >
-                                <div className="flex items-center gap-2 px-5 py-2.5">
-                                    <span className="group-hover:scale-110 transition-transform duration-300">{social.icon}</span>
-                                    <MagneticText text={social.name} />
-                                </div>
-                            </a>
-                        ))}
-                    </div>
+                                <span id="footer-p" className="inline-block text-[var(--accent)]">P</span>ATRICK
+                            </span>
+                        </div>
 
-                    <p className="text-xs text-center md:text-right flex items-center justify-center md:justify-end gap-2">
-                        <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                        Manila, PH
-                    </p>
-                </div>
+                        <div>
+                            {/* Back to top button */}
+                            <div className="flex justify-center mb-12">
+                                <button
+                                    onClick={scrollToTop}
+                                    className="group relative overflow-hidden bg-[var(--bg-primary)] border border-[var(--border)] hover:border-[var(--accent)] hover:bg-[var(--accent)] rounded-full transition-all duration-300 cursor-pointer"
+                                >
+                                    <div className="flex items-center gap-3 px-8 py-4 relative z-10">
+                                        <svg className="w-5 h-5 rotate-180 group-hover:-translate-y-1 transition-transform duration-300 text-[var(--accent)] group-hover:text-[var(--bg-primary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                                        </svg>
+                                        <MagneticText text="Back to Top" className="text-sm font-medium tracking-wide uppercase text-[var(--text-primary)] group-hover:text-[var(--bg-primary)] transition-colors duration-300" />
+                                    </div>
+                                </button>
+                            </div>
+
+                            {/* Footer content */}
+                            <div className="grid grid-cols-1 md:grid-cols-3 items-end gap-8 text-sm text-[var(--text-secondary)] border-t border-[var(--border)] pt-8">
+                                <p className="text-center md:text-left font-medium">© {new Date().getFullYear()} Patrick. All rights reserved.</p>
+
+                                {/* Social links with icons */}
+                                <div className="flex items-center justify-center gap-4">
+                                    {socials.map((social) => (
+                                        <a
+                                            key={social.name}
+                                            href={social.url}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="p-3 bg-[var(--bg-primary)] rounded-full border border-[var(--border)] hover:border-[var(--accent)] hover:bg-[var(--accent)] hover:text-black transition-all duration-300 group"
+                                            aria-label={`Visit ${social.name} profile`}
+                                        >
+                                            <span className="group-hover:scale-110 block transition-transform duration-300">{social.icon}</span>
+                                        </a>
+                                    ))}
+                                </div>
+
+                                <p className="text-xs text-center md:text-right flex items-center justify-center md:justify-end gap-2 font-medium">
+                                    <span className="relative flex h-2 w-2">
+                                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                                        <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                                    </span>
+                                    Manila, PH
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
             </div>
-        </footer>
+        </div>
     );
 }

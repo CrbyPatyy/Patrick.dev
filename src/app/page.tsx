@@ -14,7 +14,7 @@ import ScrollSection from '@/components/ScrollSection';
 export default function Home() {
     return (
         <>
-            <div className="noise" aria-hidden="true" />
+
             <ScrollProgress />
 
             <a
@@ -26,7 +26,7 @@ export default function Home() {
 
             <Navigation />
 
-            <main id="main-content">
+            <main id="main-content" className="relative z-10 bg-[var(--bg-primary)]">
                 <Hero />
 
                 <ScrollSection animation="fade">
@@ -54,8 +54,6 @@ export default function Home() {
                 <ScrollSection animation="scale">
                     <About />
                 </ScrollSection>
-
-
 
                 <ScrollSection animation="slide-up">
                     <Services />

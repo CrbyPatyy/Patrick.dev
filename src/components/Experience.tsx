@@ -50,14 +50,12 @@ export default function Experience() {
             gsap.fromTo(card,
                 {
                     opacity: 0,
-                    x: index % 2 === 0 ? -50 : 50,
-                    y: 30
+                    y: 50
                 },
                 {
                     opacity: 1,
-                    x: 0,
                     y: 0,
-                    duration: 1,
+                    duration: 0.8,
                     ease: 'power3.out',
                     scrollTrigger: {
                         trigger: card,
